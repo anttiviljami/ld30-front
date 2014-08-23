@@ -55,11 +55,12 @@ function onLoad() {
   stage.addEventListener('stagemousemove', onMouseMove);
 
 
-  // grab tile mask bounds
+  // grab tile mask bounds for later use
   maskBounds = new createjs.Bitmap(loader.getResult('tile_mask')).getBounds();
 
-  for (var r = 0; r < 12; ++r) {
 
+  // create a tile grid overlay to for pixel conversions
+  for (var r = 0; r < 12; ++r) {
     for (var q = 0; q < 15; ++q) {
     
       var tile = new Tile(q, r);
@@ -80,7 +81,6 @@ function onLoad() {
       });
 
     }
-
   }
 
   // set timing mode
@@ -98,13 +98,15 @@ function onTick(event) {
 
 function onMouseDown(e) {
   //console.log(e);
+
+  var worldPoint = map.globalToLocal(e.stageX, e.stageY);
+
   if ( e.nativeEvent.button === 2 ) { 
     mouseIsDown = true;
-    dragOrigin = {
-      x: e.stageX - map.x,
-      y: e.stageY - map.y,
-    }
+    dragOrigin = worldPoint;
   } 
+
+  console.log(pointToCoord(worldPoint));
   
 }
 
@@ -129,6 +131,47 @@ function coordToPoint(coord) {
   point.y = coord.r * maskBounds.height + (coord.q % 2) * maskBounds.height / 2;
 
   return point;
+}
+
+function pointToCoord(point) {
+  
+  coord = {};
+
+  // this is kinda hard...
+
+  // first let's do a rough approximation of the value 
+  coord.q = Math.floor(point.x / (maskBounds.width * 3/4));
+  coord.r = Math.floor(point.y / maskBounds.height);
+ 
+  // then we populate the general area with tiles
+  for (var r = -1; r <= 1; ++r) { //TODO: optimise test tiles
+    for (var q = -1; q <= 1; ++q) {
+      
+      var test = new createjs.Container();
+      var tile = new createjs.Bitmap(loader.getResult('tile_mask'));
+      test.hitArea = tile;
+
+      test.addChild(tile);
+
+      var testCoord = {q: coord.q + q, r: coord.r + r};
+
+      var position = coordToPoint(testCoord);
+      test.x = position.x;
+      test.y = position.y;
+
+      map.addChild(test);
+
+      // this enables hit detection for some reason...
+      test.on('rollover', function() {});
+
+      if(_.contains(map.getObjectsUnderPoint(point.x, point.y), test)) {
+        map.removeChild(test);
+        return testCoord
+      };
+      map.removeChild(test);
+    }
+  }
+
 }
 
 init();

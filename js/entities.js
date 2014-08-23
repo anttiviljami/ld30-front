@@ -15,13 +15,10 @@ function Tile(q, r) {
 
   // add the sprite
   tile.sprite = tile.addChild(tileSprite);
-
-  // add a transparent hitbox
   tileClone = tile.clone(true);
 
   // position
   var position = coordToPoint({q: q, r: r});
-
   tileClone.x = position.x;
   tileClone.y = position.y;
 
@@ -29,6 +26,7 @@ function Tile(q, r) {
   tileClone.q = q;
   tileClone.r = r;
 
+  // add a transparent hitbox
   tileClone.hitArea = new createjs.Bitmap(loader.getResult('tile_mask'));
 
   // show the hitArea
