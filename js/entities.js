@@ -8,6 +8,10 @@ function Tile(q, r, type) {
   // create the tile container
   tile = new createjs.Container();
   
+  if(typeof tiles[q] === 'undefined') {
+    tiles[q] = {};
+  }
+  tiles[q][r] = type;
     
   // add base tile
   var tileSprite = new createjs.Sprite(

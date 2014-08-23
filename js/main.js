@@ -9,6 +9,8 @@ var maskBounds, dragOrigin;
 var dragging = drawing = false;
 var connectionPath;
 
+var tiles = {};
+
 /*
  * This gets loaded initally
  */
@@ -124,7 +126,8 @@ function onMouseUp(e) {
 
   if ( e.nativeEvent.button === 0 ) { 
     drawing = false;
-    console.log(connectionPath);
+    connectionPath = _.map(connectionPath, function(e) { return JSON.parse(e) })
+    console.log(JSON.stringify(connectionPath));
   }
   if ( e.nativeEvent.button === 2 ) { 
     dragging = false;
@@ -136,11 +139,18 @@ function onMouseMove(e) {
   //console.log(e);
 
   var worldPoint = map.globalToLocal(e.stageX, e.stageY);
+  var currentCoord = pointToCoord(worldPoint);
+  var currentTile = getTile(currentCoord.q, currentCoord.r);
+
+  console.log(currentTile);
+  if(!currentTile) {
+    console.log('empty');
+  }
+  
 
   if(drawing) {
-    var currentCoord = JSON.stringify(pointToCoord(worldPoint));
-    if(!_.contains(connectionPath, currentCoord)) {
-      connectionPath.push(currentCoord);
+    if(!_.contains(connectionPath, JSON.stringify(currentCoord))) {
+      connectionPath.push(JSON.stringify(currentCoord));
     };
   }
 
@@ -148,6 +158,10 @@ function onMouseMove(e) {
     map.x = e.stageX - dragOrigin.x;
     map.y = e.stageY - dragOrigin.y;
   }
+}
+
+function getTile(q, r) {
+  return tiles[q] ? tiles[q][r] : null;
 }
 
 function coordToPoint(coord) {
