@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Hex - LD30 Front End</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #111;
+      }
+      canvas#stage {
+        background: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -180px;
+        margin-left: -320px;
+        width: 640px;
+        height: 360px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="stage" width="1280" height="720"></canvas>
+
+    <!-- includes -->
+    <script src="bower_components/EaselJS/lib/easeljs-0.7.1.min.js"></script>
+    <script src="bower_components/PreloadJS/lib/preloadjs-NEXT.min.js"></script>
+
+    <!-- game logic -->
+    <script src="js/main.js"></script>
+  </body>
+</html>
