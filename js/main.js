@@ -5,9 +5,9 @@
 // variables in global scope
 var stage, w, h, loader;
 var map;
-var maskBounds, dragOrigin;
+var maskBounds, dragOrigin, currentTile, currentCoord, prevCoord;
 var dragging = drawing = false;
-var connectionPath;
+var connectionPath, emptytile;
 
 var tiles = {};
 
@@ -26,6 +26,7 @@ function init() {
     {src:'assets/gray/tile_gray_data.json', id:'tile_gray_data'},
     {src:'assets/red/tile_red_data.json', id:'tile_red_data'},
     {src:'assets/yellow/tile_yellow_data.json', id:'tile_yellow_data'},
+    {src:'assets/tile_empty.png', id:'tile_empty'},
     {src:'assets/animations/pulsate.json', id:'pulsate_data'},
     {src:'assets/animations/pulsate_reverse.json', id:'pulsate_reverse_data'},
   ];
@@ -139,14 +140,28 @@ function onMouseMove(e) {
   //console.log(e);
 
   var worldPoint = map.globalToLocal(e.stageX, e.stageY);
-  var currentCoord = pointToCoord(worldPoint);
-  var currentTile = getTile(currentCoord.q, currentCoord.r);
+  currentCoord = pointToCoord(worldPoint);
+  currentTile = getTile(currentCoord.q, currentCoord.r);
 
-  console.log(currentTile);
-  if(!currentTile) {
-    console.log('empty');
+  if(JSON.stringify(prevCoord) != JSON.stringify(currentCoord)) {
+
+    map.removeChild(emptytile);
+
+    if(!currentTile) {
+      // hovering on an empty block
+
+      emptytile = new createjs.Container();
+      emptytile.addChild(new createjs.Bitmap(loader.getResult('tile_empty')));
+      
+      var pos = coordToPoint({q: currentCoord.q, r: currentCoord.r});
+      emptytile.x = pos.x;
+      emptytile.y = pos.y;
+
+      map.addChild(emptytile);
+
+    } 
+
   }
-  
 
   if(drawing) {
     if(!_.contains(connectionPath, JSON.stringify(currentCoord))) {
@@ -158,6 +173,10 @@ function onMouseMove(e) {
     map.x = e.stageX - dragOrigin.x;
     map.y = e.stageY - dragOrigin.y;
   }
+
+  // retain last coord
+  prevCoord = currentCoord;
+
 }
 
 function getTile(q, r) {
