@@ -3,30 +3,34 @@
  */
 
 // add animated tile
-function Tile(type, q, r) {
+function Datacenter(color, q, r) {
   
   // create the tile container
   tile = new createjs.Container();
   
     
-  // add base tile
-  var tileSprite = new createjs.Sprite(
-    new createjs.SpriteSheet(loader.getResult(type + "_data")), 
-    type
-  );
-  
-  // add pulsate animation
-  var tileAnimation = new createjs.Sprite(
-    new createjs.SpriteSheet(loader.getResult("pulsate_reverse_data")),
-      "pulsate_empty"
-  );
+  // add base tile 
+  var tileSprite = new createjs.Bitmap(loader.getResult("tile_" + color));
     
-  // TODO: add mousedown animation
-  // 
+  // add structure
+  var tileStructureSprite;
+  var rand = Math.round(Math.random());
+  if(rand == 0) {
+      tileStructureSprite = new createjs.Bitmap(loader.getResult("server_" + color)
+      );
+      tileStructureSprite.x = 32;
+      tileStructureSprite.y = -48;
+  }
+  else {
+      tileStructureSprite = new createjs.Bitmap(loader.getResult("dome_" + color)
+      );
+      tileStructureSprite.x = 26;
+      tileStructureSprite.y = 2;
+  }
 
   // add the sprite
   tile.sprite = tile.addChild(tileSprite);
-  tile.sprite = tile.addChild(tileAnimation);
+  tile.sprite = tile.addChild(tileStructureSprite);
 
   // add a transparent hitbox
   tileClone = tile.clone(true);

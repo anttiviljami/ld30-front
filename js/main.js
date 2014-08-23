@@ -19,12 +19,28 @@ function init() {
   // manifest 
   var manifest = [
     {src:'assets/tile_mask.png', id:'tile_mask'},
-    {src:'assets/blue/tile_blue_data.json', id:'tile_blue_data'},
-    {src:'assets/gray/tile_gray_data.json', id:'tile_gray_data'},
-    {src:'assets/red/tile_red_data.json', id:'tile_red_data'},
-    {src:'assets/yellow/tile_yellow_data.json', id:'tile_yellow_data'},
+      
+    // tiles
+    {src:'assets/yellow/tile_yellow.png', id:'tile_yellow'},
+    {src:'assets/yellow/server_yellow.png', id:'server_yellow'},
+    {src:'assets/yellow/dome_yellow.png', id:'dome_yellow'},
+      
+    {src:'assets/blue/tile_blue.png', id:'tile_blue'},
+    {src:'assets/blue/server_blue.png', id:'server_blue'},
+    {src:'assets/blue/dome_blue.png', id:'dome_blue'},
+      
+    {src:'assets/gray/tile_gray.png', id:'tile_gray'},
+    {src:'assets/gray/server_gray.png', id:'server_gray'},
+    {src:'assets/gray/dome_gray.png', id:'dome_gray'},
+      
+    {src:'assets/red/tile_red.png', id:'tile_red'},
+    {src:'assets/red/server_red.png', id:'server_red'},
+    {src:'assets/red/dome_red.png', id:'dome_red'},
+      
+    // animations
     {src:'assets/animations/pulsate.json', id:'pulsate_data'},
     {src:'assets/animations/pulsate_reverse.json', id:'pulsate_reverse_data'},
+    {src:'assets/animations/circle_dark.json', id:'circle_dark_data'},
   ];
 
   loader = new createjs.LoadQueue(false);
@@ -63,29 +79,44 @@ function onLoad() {
   for (var r = 0; r < 12; ++r) {
 
     for (var q = 0; q < 15; ++q) {
+      
+      var color;
+      var rand = Math.round(Math.random() * 4);
+      
+      switch(rand) {
+      case 0: color = "gray";
+      		  break;
+      case 1: color = "yellow";
+      		  break;
+      case 2: color = "blue";
+      		  break;
+      case 3: color = "red";
+      		  break;
+      }
     
-      var tile = new Tile('tile_yellow', q, r);
-
-      tile.on('rollover', function() {
-        //this.children[0].gotoAndPlay('circle');
-        this.children[1].gotoAndPlay('pulsate');
-      });
-
-      tile.on('rollout', function() {
-        //this.children[0].gotoAndPlay('tile_empty');
-        this.children[1].gotoAndPlay('pulsate_empty');
-      });
+      var tile = new Datacenter(color , q, r);
 
       tile.on('click', function(e) {
         console.log(e);
         if ( e.nativeEvent.button === 0 ) { 
-          console.log(this.q + ", " + this.r)
+          console.log(this.q + ", " + this.r);
         }
+      });
+	
+	  tile.on('mousedown', function(e) {
+         // this.children[2].gotoAndPlay('circle_dark'); 
+      });
+
+	  tile.on('pressup', function(e) {
+         // this.children[2].gotoAndPlay('blank');
       });
 
     }
 
   }
+  
+  
+  var tile2 = new Datacenter("blue" , 25, 0);
 
   // set timing mode
   createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
