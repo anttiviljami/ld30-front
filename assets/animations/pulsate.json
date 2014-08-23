@@ -1,0 +1,33 @@
+{
+"images": ["assets/animations/pulsate.png"],
+"frames": [
+
+    [2, 2, 120, 71], 
+    [124, 2, 120, 71], 
+    [734, 2, 120, 71], 
+    [856, 2, 120, 71], 
+    [978, 2, 120, 71], 
+    [1100, 2, 120, 71], 
+    [1222, 2, 120, 71], 
+    [1344, 2, 120, 71], 
+    [1466, 2, 120, 71], 
+    [1588, 2, 120, 71], 
+    [246, 2, 120, 71], 
+    [368, 2, 120, 71], 
+    [490, 2, 120, 71], 
+    [612, 2, 120, 71],
+    [1710, 2, 120, 71]
+],
+"animations": {
+    
+    "pulsate": {
+      "frames": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,14,14,14,14,14,14,14]
+    },
+    "pulsate_empty":[14]
+},
+"texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:acb8ce79829d66d4e6336dd5bede705f:438c3c1e00630a7160fd49a1f1efa735:c5ce360dd0d583b0cd1773c8c1e44336$",
+        "Created with TexturePacker (http://www.texturepacker.com) for EaselJS"
+],
+"framerate": 20
+}

@@ -20,10 +20,12 @@ function init() {
   // manifest 
   var manifest = [
     {src:'assets/tile_mask.png', id:'tile_mask'},
-    {src:'assets/tile_empty.png', id:'tile_empty'},
-    {src:'assets/tile_empty.json', id:'tile_empty_data'},
-    {src:'assets/tile_blue.png', id:'tile_blue'},
-    {src:'assets/tile_blue.json', id:'tile_blue_data'},
+    {src:'assets/blue/tile_blue_data.json', id:'tile_blue_data'},
+    {src:'assets/gray/tile_gray_data.json', id:'tile_gray_data'},
+    {src:'assets/red/tile_red_data.json', id:'tile_red_data'},
+    {src:'assets/yellow/tile_yellow_data.json', id:'tile_yellow_data'},
+    {src:'assets/animations/pulsate.json', id:'pulsate_data'},
+    {src:'assets/animations/pulsate_reverse.json', id:'pulsate_reverse_data'},
   ];
 
   loader = new createjs.LoadQueue(false);
@@ -64,14 +66,16 @@ function onLoad() {
   for (var r = 0; r < 12; ++r) {
     for (var q = 0; q < 15; ++q) {
     
-      var tile = new Tile(q, r);
+      var tile = new Tile(q, r, 'tile_yellow');
 
       tile.on('rollover', function() {
-        this.children[0].gotoAndPlay('circle');
+        //this.children[0].gotoAndPlay('circle');
+        this.children[1].gotoAndPlay('pulsate');
       });
 
       tile.on('rollout', function() {
-        this.children[0].gotoAndPlay('tile_empty');
+        //this.children[0].gotoAndPlay('tile_empty');
+        this.children[1].gotoAndPlay('pulsate_empty');
       });
 
       tile.on('click', function(e) {
