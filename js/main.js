@@ -13,9 +13,16 @@ var mouseIsDown = false;
  */
 function init() {
 
+  // disable context menu
+  document.getElementById('stage').oncontextmenu = function() { 
+    return false; 
+  };
+
   // manifest 
   var manifest = [
     {src:'assets/tile_mask.png', id:'tile_mask'},
+    {src:'assets/tile_empty.png', id:'tile_empty'},
+    {src:'assets/tile_empty.json', id:'tile_empty_data'},
     {src:'assets/tile_blue.png', id:'tile_blue'},
     {src:'assets/tile_blue.json', id:'tile_blue_data'},
   ];
@@ -51,42 +58,33 @@ function onLoad() {
 
 
   // grab tile mask bounds
-  maskBounds = {
-    width: 90,
-    height: 35.5
-  };
+  maskBounds = new createjs.Bitmap(loader.getResult('tile_mask')).getBounds();
 
-  // add animated tile
-  var tileSprite = new createjs.Sprite(
-    new createjs.SpriteSheet(loader.getResult('tile_blue_data')), 
-    'blue_tile'
-  );
+  for (var r = 0; r < 12; ++r) {
 
-  for (var y = 0; y < 12; ++y) {
-
-    for (var x = 0; x < 6; ++x) {
+    for (var q = 0; q < 15; ++q) {
     
-      var tileClone = new Tile(tileSprite);
+      var tile = new Tile(q, r);
 
-      tileClone.x = x * maskBounds.width * 2 + (y % 2) *  maskBounds.width;
-      tileClone.y = y * maskBounds.height;
-
-      tileClone.hitArea = new createjs.Bitmap(loader.getResult('tile_mask'));
-
-      map.addChild(tileClone);  
-
-      tileClone.on('rollover', function() {
-        this.children[0].gotoAndPlay('pulsate');
+      tile.on('rollover', function() {
+        this.children[0].gotoAndPlay('circle');
       });
 
-       tileClone.on('rollout', function() {
-        this.children[0].gotoAndPlay('blue_tile');
+      tile.on('rollout', function() {
+        this.children[0].gotoAndPlay('tile_empty');
+      });
+
+      tile.on('click', function() {
+        console.log(this.q + ", " + this.r)
       });
 
     }
 
   }
 
+  // set timing mode
+  createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
+  createjs.Ticker.setFPS(60);
   createjs.Ticker.addEventListener('tick', onTick);
 
 }
@@ -97,27 +95,16 @@ function onTick(event) {
   stage.update(event);
 }
 
-
-function Tile(sprite) {
-  
-  // create the tile container
-  tile = new createjs.Container();
-  
-  // add the sprite
-  tile.sprite = tile.addChild(sprite);
-
-  // add a transparent hitbox
-
-  return tile.clone(true);
-}
-
 function onMouseDown(e) {
   //console.log(e);
-  mouseIsDown = true;
-  dragOrigin = {
-    x: e.stageX - map.x,
-    y: e.stageY - map.y,
-  }
+  if ( e.nativeEvent.button == 2 ) { 
+    mouseIsDown = true;
+    dragOrigin = {
+      x: e.stageX - map.x,
+      y: e.stageY - map.y,
+    }
+  } 
+  
 }
 
 function onMouseUp(e) {
@@ -128,10 +115,19 @@ function onMouseUp(e) {
 function onMouseMove(e) {
   //console.log(e);
   if(mouseIsDown) {
-    console.log(map.getBounds());
     map.x = e.stageX - dragOrigin.x;
     map.y = e.stageY - dragOrigin.y;
   }
+}
+
+function coordToPoint(coord) {
+  
+  point = {};
+  
+  point.x = coord.q * maskBounds.width * 3/4;
+  point.y = coord.r * maskBounds.height + (coord.q % 2) * maskBounds.height / 2;
+
+  return point;
 }
 
 init();
