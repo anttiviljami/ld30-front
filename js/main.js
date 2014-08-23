@@ -120,11 +120,11 @@ function onLoad() {
       var tile = new Datacenter(color , q, r);
 
       tile.on('rollover', function() {
-        this.on('tick', oscillate);
+        this.children[0].y = -11;
       });
 
       tile.on('rollout', function() {
-        console.log(this);
+        this.children[0].y = 0;
       });
 
       tile.on('click', function(e) {
@@ -218,10 +218,10 @@ function onMouseMove(e) {
       emptytile.q = currentCoord.q;
       emptytile.r = currentCoord.r;
 
-      emptytile.alpha = 1;
+      emptytile.alpha = .4;
 
       //animate on hover
-      emptytile.on('tick', oscillate);
+      //emptytile.on('tick', oscillate);
 
       map.addChild(emptytile);
       sortDraw = true;
@@ -302,8 +302,8 @@ function pointToCoord(point) {
 }
 
 function sortByRow(a,b) {
-  var aIndex = 20000 * a.r + 10000 * !(a.q % 2 == 0) + a.q;
-  var bIndex = 20000 * b.r + 10000 * !(b.q % 2 == 0) + b.q;
+  var aIndex = 20000 * a.r + 10000 * !(a.q % 2 == 0) + a.q; // simple statement
+  var bIndex = 20000 * b.r + 10000 * !(b.q % 2 == 0) + b.q; // easy, isn't it?
 
   if (aIndex < bIndex) return -1;
   if (aIndex > bIndex) return 1;
