@@ -7,6 +7,7 @@ function Datacenter(color, q, r) {
   
   // create the tile container
   tile = new createjs.Container();
+  tileContainer = new createjs.Container();
 
   // save into multi-dimensional array
 
@@ -36,8 +37,11 @@ function Datacenter(color, q, r) {
   }
 
   // add the sprite
-  tile.sprite = tile.addChild(tileSprite);
-  tile.sprite = tile.addChild(tileStructureSprite);
+  tileContainer.sprite = tileContainer.addChild(tileSprite);
+  tileContainer.sprite = tileContainer.addChild(tileStructureSprite);
+    
+  // wrap tileContainer into tile
+  tile.addChild(tileContainer);
 
   // add a transparent hitbox
   tileClone = tile.clone(true);
