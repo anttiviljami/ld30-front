@@ -4,10 +4,12 @@
 
 // variables in global scope
 var stage, w, h, loader;
-var map;
+var cam, map;
 var maskBounds, dragOrigin, currentTile, currentCoord, prevCoord;
-var dragging = drawing = false;
+var drawing = dragging = false;
 var connectionPath, emptytile;
+
+var sortDraw = true;
 
 var tiles = {};
 
@@ -17,7 +19,11 @@ var tiles = {};
 function init() {
 
   // disable context menu
-  document.getElementById('stage').oncontextmenu = function() { return false; };
+  var canvas = document.getElementById('stage');
+  canvas.oncontextmenu = function() { return false; };
+
+  canvas.width = document.body.clientWidth; //document.width is obsolete
+  canvas.height = document.body.clientHeight; //document.height is obsolete
 
   // manifest 
   var manifest = [
@@ -44,9 +50,18 @@ function onLoad() {
   // the main stage
   stage = new createjs.Stage('stage');
 
+  // the camera
+  cam = new createjs.Container();
+  stage.addChild(cam);
+
+  cam.x = stage.canvas.width / 2;
+  cam.y = stage.canvas.height / 2;
+
+  cam.scaleX = cam.scaleY = 0.75;
+
   // the game world
   map = new createjs.Container();
-  stage.addChild(map);
+  cam.addChild(map);
 
   // enable some mouse events
   stage.enableMouseOver();
@@ -66,24 +81,26 @@ function onLoad() {
 
 
   // create a tile grid overlay to for pixel conversions
-  for (var r = 0; r < 12; ++r) {
-    for (var q = 0; q < 15; ++q) {
+  for (var r = 2; r < 12; ++r) {
+    for (var q = 2; q < 15; ++q) {
     
       var tile = new Tile(q, r, 'tile_yellow');
 
       tile.on('rollover', function() {
         //this.children[0].gotoAndPlay('circle');
         this.children[1].gotoAndPlay('pulsate');
+        this.on('tick', oscillate);
       });
 
       tile.on('rollout', function() {
         //this.children[0].gotoAndPlay('tile_empty');
         this.children[1].gotoAndPlay('pulsate_empty');
+        console.log(this);
       });
 
       tile.on('click', function(e) {
         if ( e.nativeEvent.button === 0 ) { 
-          //console.log(this.q + ", " + this.r)
+          console.log(map.getChildIndex(this));
         }
       });
 
@@ -99,14 +116,21 @@ function onLoad() {
 
 function onTick(event) {
   //console.log('tick');
-   
+  
+  if(sortDraw) {
+    // draw order algorithm
+    map.sortChildren(sortByRow);
+    sortDraw = false;
+  }
+
   stage.update(event);
 }
 
 function onMouseDown(e) {
   //console.log(e);
-
   var worldPoint = map.globalToLocal(e.stageX, e.stageY);
+  currentCoord = pointToCoord(worldPoint);
+  currentTile = getTile(currentCoord.q, currentCoord.r);
 
   if ( e.nativeEvent.button === 0 ) { 
     drawing = true;
@@ -115,7 +139,7 @@ function onMouseDown(e) {
 
   if ( e.nativeEvent.button === 2 ) { 
     dragging = true;
-    dragOrigin = worldPoint;
+    dragOrigin = {x: e.stageX - map.x * cam.scaleX, y: e.stageY - map.y * cam.scaleX};
   } 
 
   console.log(pointToCoord(worldPoint));
@@ -157,7 +181,16 @@ function onMouseMove(e) {
       emptytile.x = pos.x;
       emptytile.y = pos.y;
 
+      emptytile.q = currentCoord.q;
+      emptytile.r = currentCoord.r;
+
+      emptytile.alpha = 1;
+
+      //animate on hover
+      emptytile.on('tick', oscillate);
+
       map.addChild(emptytile);
+      sortDraw = true;
 
     } 
 
@@ -170,8 +203,10 @@ function onMouseMove(e) {
   }
 
   if(dragging) {
-    map.x = e.stageX - dragOrigin.x;
-    map.y = e.stageY - dragOrigin.y;
+    // moving the camera
+
+    map.x = (e.stageX - dragOrigin.x) / cam.scaleX;
+    map.y = (e.stageY - dragOrigin.y) / cam.scaleY;
   }
 
   // retain last coord
@@ -230,6 +265,21 @@ function pointToCoord(point) {
     }
   }
 
+}
+
+function sortByRow(a,b) {
+  var aIndex = 20000 * a.r + 10000 * !(a.q % 2 == 0) + a.q;
+  var bIndex = 20000 * b.r + 10000 * !(b.q % 2 == 0) + b.q;
+
+  if (aIndex < bIndex) return -1;
+  if (aIndex > bIndex) return 1;
+  return 0;
+}
+
+function oscillate(e) {
+  _.each(this.children, function (e) { 
+    e.y = -( Math.sin(createjs.Ticker.getTime() / 500)) * 8;
+  });
 }
 
 init();

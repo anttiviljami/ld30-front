@@ -55,7 +55,7 @@ function Tile(q, r, type) {
   map.addChild(tileClone);
 
   // fix draw order 
-  map.setChildIndex(tileClone, map.getChildIndex(tileClone) - !(q % 2));
+  sortDraw = true;
 
   return tileClone;
 }
