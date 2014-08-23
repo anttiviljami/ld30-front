@@ -6,7 +6,8 @@
 var stage, w, h, loader;
 var map;
 var maskBounds, dragOrigin;
-var mouseIsDown = false;
+var dragging = drawing = false;
+var connectionPath;
 
 /*
  * This gets loaded initally
@@ -74,9 +75,8 @@ function onLoad() {
       });
 
       tile.on('click', function(e) {
-        console.log(e);
         if ( e.nativeEvent.button === 0 ) { 
-          console.log(this.q + ", " + this.r)
+          //console.log(this.q + ", " + this.r)
         }
       });
 
@@ -101,8 +101,13 @@ function onMouseDown(e) {
 
   var worldPoint = map.globalToLocal(e.stageX, e.stageY);
 
+  if ( e.nativeEvent.button === 0 ) { 
+    drawing = true;
+    connectionPath = [ JSON.stringify(pointToCoord(worldPoint)) ];
+  } 
+
   if ( e.nativeEvent.button === 2 ) { 
-    mouseIsDown = true;
+    dragging = true;
     dragOrigin = worldPoint;
   } 
 
@@ -112,12 +117,30 @@ function onMouseDown(e) {
 
 function onMouseUp(e) {
  // console.log(e);
-  mouseIsDown = false;
+
+  if ( e.nativeEvent.button === 0 ) { 
+    drawing = false;
+    console.log(connectionPath);
+  }
+  if ( e.nativeEvent.button === 2 ) { 
+    dragging = false;
+  }
+  
 }
 
 function onMouseMove(e) {
   //console.log(e);
-  if(mouseIsDown) {
+
+  var worldPoint = map.globalToLocal(e.stageX, e.stageY);
+
+  if(drawing) {
+    var currentCoord = JSON.stringify(pointToCoord(worldPoint));
+    if(!_.contains(connectionPath, currentCoord)) {
+      connectionPath.push(currentCoord);
+    };
+  }
+
+  if(dragging) {
     map.x = e.stageX - dragOrigin.x;
     map.y = e.stageY - dragOrigin.y;
   }
@@ -150,8 +173,6 @@ function pointToCoord(point) {
       var test = new createjs.Container();
       var tile = new createjs.Bitmap(loader.getResult('tile_mask'));
       test.hitArea = tile;
-
-      test.addChild(tile);
 
       var testCoord = {q: coord.q + q, r: coord.r + r};
 
