@@ -1,0 +1,29 @@
+{
+"images": ["assets/animations/circle_dark.png"],
+"frames": [
+
+    [2, 2, 120, 71], 
+    [2, 75, 120, 71], 
+    [2, 148, 120, 71], 
+    [2, 221, 120, 71], 
+    [2, 294, 120, 71], 
+    [2, 367, 120, 71], 
+    [0, 0, 0, 0]
+    
+],
+"animations": {
+    
+    
+    "circle_dark": {
+      "frames": [0,1,2,3,4,5]
+    },
+    "blank": {
+      "frames": [6]
+    }
+},
+"texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:69b6dbcc67c75b2dee938a05957b36bf:f623b82f1ce0e0278103f4a550e2089d:8222f882658dc24b304eea949576d1f4$",
+        "Created with TexturePacker (http://www.texturepacker.com) for EaselJS"
+],
+"framerate": 20
+}

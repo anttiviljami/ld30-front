@@ -35,6 +35,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/assets\/animations\/circle_dark.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 5648,
+		"inputAbbreviatedPath": "\/assets\/animations\/circle_dark.png",
+		"outputAbbreviatedPath": "\/assets\/animations\/circle_dark.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/assets\/animations\/pulsate.png": {
 		"fileType": 32768,
 		"ignore": 0,

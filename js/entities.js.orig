@@ -3,21 +3,36 @@
  */
 
 // add animated tile
+<<<<<<< HEAD
+function Tile(q, r, type) {
+=======
 function Datacenter(color, q, r) {
+>>>>>>> 8c8740117b2f9cf81a4f22fe0c288d7c0e54d479
   
   // create the tile container
   tile = new createjs.Container();
-
-  // save into multi-dimensional array
-
-  if(!tiles[q]) {
+  
+  if(typeof tiles[q] === 'undefined') {
     tiles[q] = {};
   }
-
-  tiles[q][r] = this;
+  tiles[q][r] = type;
+    
+<<<<<<< HEAD
+  // add base tile
+  var tileSprite = new createjs.Sprite(
+    new createjs.SpriteSheet(loader.getResult(type + "_data")), 
+      type
+  );
   
+  // add pulsate animation
+  var tileAnimation = new createjs.Sprite(
+    new createjs.SpriteSheet(loader.getResult("pulsate_reverse_data")),
+      "pulsate_empty"
+  );
+=======
   // add base tile 
   var tileSprite = new createjs.Bitmap(loader.getResult("tile_" + color));
+>>>>>>> 8c8740117b2f9cf81a4f22fe0c288d7c0e54d479
     
   // add structure
   var tileStructureSprite;

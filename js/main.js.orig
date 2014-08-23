@@ -20,14 +20,21 @@ function init() {
 
   // disable context menu
   var canvas = document.getElementById('stage');
-  
   canvas.oncontextmenu = function() { return false; };
-  window.addEventListener('resize', resize);
 
+  canvas.width = document.body.clientWidth; //document.width is obsolete
+  canvas.height = document.body.clientHeight; //document.height is obsolete
 
   // manifest 
   var manifest = [
     {src:'assets/tile_mask.png', id:'tile_mask'},
+<<<<<<< HEAD
+    {src:'assets/blue/tile_blue_data.json', id:'tile_blue_data'},
+    {src:'assets/gray/tile_gray_data.json', id:'tile_gray_data'},
+    {src:'assets/red/tile_red_data.json', id:'tile_red_data'},
+    {src:'assets/yellow/tile_yellow_data.json', id:'tile_yellow_data'},
+    {src:'assets/tile_empty.png', id:'tile_empty'},
+=======
       
     // tiles
     {src:'assets/yellow/tile_yellow.png', id:'tile_yellow'},
@@ -45,10 +52,9 @@ function init() {
     {src:'assets/red/tile_red.png', id:'tile_red'},
     {src:'assets/red/server_red.png', id:'server_red'},
     {src:'assets/red/dome_red.png', id:'dome_red'},
-
-    {src:'assets/tile_empty.png', id:'tile_empty'},
       
     // animations
+>>>>>>> 8c8740117b2f9cf81a4f22fe0c288d7c0e54d479
     {src:'assets/animations/pulsate.json', id:'pulsate_data'},
     {src:'assets/animations/pulsate_reverse.json', id:'pulsate_reverse_data'},
     {src:'assets/animations/circle_dark.json', id:'circle_dark_data'},
@@ -71,9 +77,10 @@ function onLoad() {
   cam = new createjs.Container();
   stage.addChild(cam);
 
-  cam.scaleX = cam.scaleY = 0.75;
+  cam.x = stage.canvas.width / 2;
+  cam.y = stage.canvas.height / 2;
 
-  resize();
+  cam.scaleX = cam.scaleY = 0.75;
 
   // the game world
   map = new createjs.Container();
@@ -95,38 +102,61 @@ function onLoad() {
   // grab tile mask bounds for later use
   maskBounds = new createjs.Bitmap(loader.getResult('tile_mask')).getBounds();
 
-  for (var r = 0; r < 12; ++r) {
 
-    for (var q = 1; q < 15; ++q) {
+<<<<<<< HEAD
+  // create a tile grid overlay to for pixel conversions
+  for (var r = 2; r < 12; ++r) {
+    for (var q = 2; q < 15; ++q) {
+    
+      var tile = new Tile(q, r, 'tile_yellow');
+
+      tile.on('rollover', function() {
+        //this.children[0].gotoAndPlay('circle');
+        this.children[1].gotoAndPlay('pulsate');
+        this.on('tick', oscillate);
+      });
+
+      tile.on('rollout', function() {
+        //this.children[0].gotoAndPlay('tile_empty');
+        this.children[1].gotoAndPlay('pulsate_empty');
+        console.log(this);
+      });
+=======
+    for (var q = 0; q < 15; ++q) {
       
       var color;
       var rand = Math.round(Math.random() * 4);
       
       switch(rand) {
-        case 0: color = "gray";
-      		break;
-        case 1: color = "yellow";
-      		break;
-       case 2: color = "blue";
-      		break;
-        case 3: color = "red";
-      	  break;
+      case 0: color = "gray";
+      		  break;
+      case 1: color = "yellow";
+      		  break;
+      case 2: color = "blue";
+      		  break;
+      case 3: color = "red";
+      		  break;
       }
     
       var tile = new Datacenter(color , q, r);
-
-      tile.on('rollover', function() {
-        this.on('tick', oscillate);
-      });
-
-      tile.on('rollout', function() {
-        console.log(this);
-      });
+>>>>>>> 8c8740117b2f9cf81a4f22fe0c288d7c0e54d479
 
       tile.on('click', function(e) {
         if ( e.nativeEvent.button === 0 ) { 
+<<<<<<< HEAD
           console.log(map.getChildIndex(this));
+=======
+          console.log(this.q + ", " + this.r);
+>>>>>>> 8c8740117b2f9cf81a4f22fe0c288d7c0e54d479
         }
+      });
+	
+	  tile.on('mousedown', function(e) {
+         // this.children[2].gotoAndPlay('circle_dark'); 
+      });
+
+	  tile.on('pressup', function(e) {
+         // this.children[2].gotoAndPlay('blank');
       });
 
     }
@@ -201,8 +231,6 @@ function onMouseMove(e) {
 
     if(!currentTile) {
       // hovering on an empty block
-
-      console.log('empty');
 
       emptytile = new createjs.Container();
       emptytile.addChild(new createjs.Bitmap(loader.getResult('tile_empty')));
@@ -310,14 +338,6 @@ function oscillate(e) {
   _.each(this.children, function (e) { 
     e.y = -( Math.sin(createjs.Ticker.getTime() / 500)) * 8;
   });
-}
-
-function resize() {
-  stage.canvas.width = document.body.clientWidth; 
-  stage.canvas.height = document.body.clientHeight; 
-
-  cam.x = stage.canvas.width / 2;
-  cam.y = stage.canvas.height / 2;
 }
 
 init();
