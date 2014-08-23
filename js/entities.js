@@ -34,7 +34,11 @@ function Tile(q, r) {
   // show the hitArea
   //tileClone.addChild(tileClone.hitArea);
 
+  
   map.addChild(tileClone);
+
+  // fix draw order 
+  map.setChildIndex(tileClone, map.getChildIndex(tileClone) - !(q % 2));
 
   return tileClone;
 }

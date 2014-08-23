@@ -14,9 +14,7 @@ var mouseIsDown = false;
 function init() {
 
   // disable context menu
-  document.getElementById('stage').oncontextmenu = function() { 
-    return false; 
-  };
+  document.getElementById('stage').oncontextmenu = function() { return false; };
 
   // manifest 
   var manifest = [
@@ -74,8 +72,11 @@ function onLoad() {
         this.children[0].gotoAndPlay('tile_empty');
       });
 
-      tile.on('click', function() {
-        console.log(this.q + ", " + this.r)
+      tile.on('click', function(e) {
+        console.log(e);
+        if ( e.nativeEvent.button === 0 ) { 
+          console.log(this.q + ", " + this.r)
+        }
       });
 
     }
@@ -97,7 +98,7 @@ function onTick(event) {
 
 function onMouseDown(e) {
   //console.log(e);
-  if ( e.nativeEvent.button == 2 ) { 
+  if ( e.nativeEvent.button === 2 ) { 
     mouseIsDown = true;
     dragOrigin = {
       x: e.stageX - map.x,
