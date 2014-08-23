@@ -22,18 +22,26 @@ function Datacenter(color, q, r) {
     
   // add structure
   var tileStructureSprite;
-  var rand = Math.round(Math.random());
-  if(rand == 0) {
-      tileStructureSprite = new createjs.Bitmap(loader.getResult("server_" + color)
-      );
-      tileStructureSprite.x = 32;
-      tileStructureSprite.y = -48;
-  }
-  else {
-      tileStructureSprite = new createjs.Bitmap(loader.getResult("dome_" + color)
-      );
-      tileStructureSprite.x = 26;
-      tileStructureSprite.y = 2;
+  var rand = Math.round(Math.random() * 2);
+  switch(rand) {
+      case 0:
+          tileStructureSprite = new createjs.Bitmap(loader.getResult("server_" + color)
+          );
+          tileStructureSprite.x = 32;
+          tileStructureSprite.y = -48;
+          break;
+      case 1:
+          tileStructureSprite = new createjs.Bitmap(loader.getResult("dome_" + color)
+          );
+          tileStructureSprite.x = 26;
+          tileStructureSprite.y = 2;
+          break;
+      case 2:
+          tileStructureSprite = new createjs.Bitmap(loader.getResult("factory_" + color)
+          );
+          tileStructureSprite.x = 25;
+          tileStructureSprite.y = -44;
+          break;  
   }
 
   // add the sprite

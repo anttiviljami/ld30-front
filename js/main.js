@@ -31,20 +31,24 @@ function init() {
       
     // tiles
     {src:'assets/yellow/tile_yellow.png', id:'tile_yellow'},
-    {src:'assets/yellow/server_yellow.png', id:'server_yellow'},
+    {src:'assets/yellow/server_yellow_v2.png', id:'server_yellow'},
     {src:'assets/yellow/dome_yellow.png', id:'dome_yellow'},
+    {src:'assets/yellow/factory_yellow.png', id:'factory_yellow'},
       
     {src:'assets/blue/tile_blue.png', id:'tile_blue'},
-    {src:'assets/blue/server_blue.png', id:'server_blue'},
+    {src:'assets/blue/server_blue_v2.png', id:'server_blue'},
     {src:'assets/blue/dome_blue.png', id:'dome_blue'},
+    {src:'assets/blue/factory_blue.png', id:'factory_blue'},
       
     {src:'assets/gray/tile_gray.png', id:'tile_gray'},
-    {src:'assets/gray/server_gray.png', id:'server_gray'},
+    {src:'assets/gray/server_gray_v2.png', id:'server_gray'},
     {src:'assets/gray/dome_gray.png', id:'dome_gray'},
+    {src:'assets/gray/factory_gray.png', id:'factory_gray'},
       
     {src:'assets/red/tile_red.png', id:'tile_red'},
-    {src:'assets/red/server_red.png', id:'server_red'},
+    {src:'assets/red/server_red_v2.png', id:'server_red'},
     {src:'assets/red/dome_red.png', id:'dome_red'},
+    {src:'assets/red/factory_red.png', id:'factory_red'},
 
     {src:'assets/tile_empty.png', id:'tile_empty'},
       
