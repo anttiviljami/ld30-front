@@ -46,24 +46,24 @@ function init() {
       
     // spritesheets
     {src:'assets/blue/tile_blue.png', id:'tile_blue'},
-    {src:'assets/blue/server_blue_v2.png', id:'server_blue'},
+    {src:'assets/blue/server_blue.png', id:'server_blue'},
     {src:'assets/blue/dome_blue.png', id:'dome_blue'},
     {src:'assets/blue/factory_blue.png', id:'factory_blue'},
 
     {src:'assets/red/tile_red.png', id:'tile_red'},
-    {src:'assets/red/server_red_v2.png', id:'server_red'},
+    {src:'assets/red/server_red.png', id:'server_red'},
     {src:'assets/red/dome_red.png', id:'dome_red'},
     {src:'assets/red/factory_red.png', id:'factory_red'},
 
     {src:'assets/yellow/tile_yellow.png', id:'tile_yellow'},
-    {src:'assets/yellow/server_yellow_v2.png', id:'server_yellow'},
+    {src:'assets/yellow/server_yellow.png', id:'server_yellow'},
     {src:'assets/yellow/dome_yellow.png', id:'dome_yellow'},
     {src:'assets/yellow/factory_yellow.png', id:'factory_yellow'},
     
-    {src:'assets/gray/tile_gray.png', id:'tile_gray'},
-    {src:'assets/gray/server_gray_v2.png', id:'server_gray'},
-    {src:'assets/gray/dome_gray.png', id:'dome_gray'},
-    {src:'assets/gray/factory_gray.png', id:'factory_gray'},
+    {src:'assets/grey/tile_grey.png', id:'tile_grey'},
+    {src:'assets/grey/server_grey.png', id:'server_grey'},
+    {src:'assets/grey/dome_grey.png', id:'dome_grey'},
+    {src:'assets/grey/factory_grey.png', id:'factory_grey'},
     
     {src:'assets/tile_empty.png', id:'tile_empty'},
       
@@ -117,7 +117,7 @@ function gameInit() {
   onResize();
 
   // initial scale is 50%
-  cam.scaleX = cam.scaleY = 0.5;
+  cam.scaleX = cam.scaleY = .75;
 
   // enable some mouse events
   stage.enableMouseOver();
@@ -191,9 +191,11 @@ function gameInit() {
     sfx.play();
   });
 
-  var tile = new Datacenter(1, 2);
-  var tile = new Datacenter(5, 6);
-  var tile = new Datacenter(10, 11);
+  dpd.on('game:started', function(e) {
+    console.log(e);
+    var sfx = new Audio('assets/CashRegister.mp3');
+    sfx.play();
+  });
 
 }
 
@@ -411,13 +413,13 @@ function pathFind(coord0, coord1) {
 function neighbours(coord) {
 
   var offsets = [
-   [ [+1,  0], [+1, 0], [ 0, -1],
-     [-1, 0], [-1,  0], [ 0, +1] ],
-   [ [+1, 0], [+1,  0], [ 0, -1],
-     [-1,  0], [-1, 0], [ 0, +1] ]
-  ];
+   [ [+1,  0], [+1, -1], [ 0, -1],
+     [-1, -1], [-1,  0], [ 0, +1] ],
+   [ [+1, +1], [+1,  0], [ 0, -1],
+     [-1,  0], [-1, +1], [ 0, +1] ]
+]
 
-  var ret = _.map(offsets[(coord.q % 2 == 0) ? 1 : 0], function(e) {
+  var ret = _.map(offsets[!(coord.q % 2 == 0) ? 1 : 0], function(e) {
     return {q: coord.q + e[0], r: coord.r + e[1]};
   });
 

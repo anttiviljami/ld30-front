@@ -13,6 +13,8 @@
  */
 function Datacenter(q, r, type, owner) {
 
+  if(getTile(q, r) != undefined) return; // do nothing
+
   // save into the global tiles collection
   if(!tiles[q]) {
     tiles[q] = {};
@@ -24,7 +26,7 @@ function Datacenter(q, r, type, owner) {
   
   var colour = teams[owner]; // colour can be fetched from teams 
   if(typeof colour === 'undefined') {
-    colour = 'gray'; //grey
+    colour = 'grey'; //grey
   }
 
   //console.log(type+"_"+colour)
@@ -44,16 +46,16 @@ function Datacenter(q, r, type, owner) {
   var tileStructureSprite = new createjs.Bitmap(loader.getResult(type + '_' + colour));
   switch(type) {
     case 'server':
-      tileStructureSprite.x = 32;
-      tileStructureSprite.y = -48;
+      tileStructureSprite.x = 7;
+      tileStructureSprite.y = -125;
       break;
     case 'dome':
-      tileStructureSprite.x = 26;
-      tileStructureSprite.y = 2;
+      tileStructureSprite.x = 8;
+      tileStructureSprite.y = -16;
       break;
     case 'factory':
-      tileStructureSprite.x = 25;
-      tileStructureSprite.y = -44;
+      tileStructureSprite.x = 10;
+      tileStructureSprite.y = -80;
       break;  
   }
     
@@ -116,7 +118,7 @@ function PathNode(q, r, owner, phase) {
   
   var colour = teams[owner]; // colour can be fetched from teams 
   if(typeof colour === 'undefined') {
-    colour = 'gray'; //grey
+    colour = 'grey'; 
   }
 
   pathNode = new createjs.Container();

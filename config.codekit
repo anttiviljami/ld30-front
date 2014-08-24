@@ -123,57 +123,46 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/assets\/gray\/dome_gray.png": {
+	"\/assets\/grey\/dome_grey.png": {
 		"fileType": 32768,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 2689,
-		"inputAbbreviatedPath": "\/assets\/gray\/dome_gray.png",
-		"outputAbbreviatedPath": "\/assets\/gray\/dome_gray.png",
+		"initialSize": 3813,
+		"inputAbbreviatedPath": "\/assets\/grey\/dome_grey.png",
+		"outputAbbreviatedPath": "\/assets\/grey\/dome_grey.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/assets\/gray\/factory_gray.png": {
+	"\/assets\/grey\/factory_grey.png": {
 		"fileType": 32768,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 2674,
-		"inputAbbreviatedPath": "\/assets\/gray\/factory_gray.png",
-		"outputAbbreviatedPath": "\/assets\/gray\/factory_gray.png",
+		"initialSize": 3722,
+		"inputAbbreviatedPath": "\/assets\/grey\/factory_grey.png",
+		"outputAbbreviatedPath": "\/assets\/grey\/factory_grey.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/assets\/gray\/server_gray.png": {
+	"\/assets\/grey\/server_grey.png": {
 		"fileType": 32768,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 2689,
-		"inputAbbreviatedPath": "\/assets\/gray\/server_gray.png",
-		"outputAbbreviatedPath": "\/assets\/gray\/server_gray.png",
+		"initialSize": 5080,
+		"inputAbbreviatedPath": "\/assets\/grey\/server_grey.png",
+		"outputAbbreviatedPath": "\/assets\/grey\/server_grey.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/assets\/gray\/server_gray_v2.png": {
-		"fileType": 32768,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 2728,
-		"inputAbbreviatedPath": "\/assets\/gray\/server_gray_v2.png",
-		"outputAbbreviatedPath": "\/assets\/gray\/server_gray_v2.png",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/assets\/gray\/tile_gray.png": {
+	"\/assets\/grey\/tile_grey.png": {
 		"fileType": 32768,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 3036,
-		"inputAbbreviatedPath": "\/assets\/gray\/tile_gray.png",
-		"outputAbbreviatedPath": "\/assets\/gray\/tile_gray.png",
+		"inputAbbreviatedPath": "\/assets\/grey\/tile_grey.png",
+		"outputAbbreviatedPath": "\/assets\/grey\/tile_grey.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -529,7 +518,7 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
+		"syntaxCheckerStyle": 0
 		},
 	"\/js\/min\/controls-min.js": {
 		"fileType": 64,
@@ -574,6 +563,17 @@
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
+		},
+	"\/js\/server.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/server.js",
+		"outputAbbreviatedPath": "\/js\/min\/server-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 0
 		},
 	"\/README.md": {
 		"enableFootnoteSupport": 0,
