@@ -27,6 +27,9 @@ var sortDraw = true;
 // a multi-dimensional collection of game tiles
 var tiles = {};
 
+// a multi-dimensional collection for keeping in sync with backend
+var server = {};
+
 
 /*
  * Entry point, gets called on game start
@@ -65,6 +68,10 @@ function init() {
     {src:'assets/animations/pulsate_reverse.json', id:'pulsate_reverse_data'},
     {src:'assets/animations/circle_dark.json', id:'circle_dark_data'},
   ];
+
+  //Connect to server
+  server = new Server();
+  server.init();
 
   // preload all assets declared in the manifest
   loader = new createjs.LoadQueue(false);
