@@ -46,6 +46,72 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/assets\/animations\/dome_flash.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 9877,
+		"inputAbbreviatedPath": "\/assets\/animations\/dome_flash.png",
+		"outputAbbreviatedPath": "\/assets\/animations\/dome_flash.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/assets\/animations\/factory_smoke.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 8397,
+		"inputAbbreviatedPath": "\/assets\/animations\/factory_smoke.png",
+		"outputAbbreviatedPath": "\/assets\/animations\/factory_smoke.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/assets\/animations\/fancy_tile_pulsate.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 20192,
+		"inputAbbreviatedPath": "\/assets\/animations\/fancy_tile_pulsate.png",
+		"outputAbbreviatedPath": "\/assets\/animations\/fancy_tile_pulsate.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/assets\/animations\/menu_ch_pulsate.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 32445,
+		"inputAbbreviatedPath": "\/assets\/animations\/menu_ch_pulsate.png",
+		"outputAbbreviatedPath": "\/assets\/animations\/menu_ch_pulsate.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/assets\/animations\/menu_oo_pulsate.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 50236,
+		"inputAbbreviatedPath": "\/assets\/animations\/menu_oo_pulsate.png",
+		"outputAbbreviatedPath": "\/assets\/animations\/menu_oo_pulsate.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/assets\/animations\/menu_se_pulsate.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 28846,
+		"inputAbbreviatedPath": "\/assets\/animations\/menu_se_pulsate.png",
+		"outputAbbreviatedPath": "\/assets\/animations\/menu_se_pulsate.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/assets\/animations\/pulsate.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -152,6 +218,50 @@
 		"initialSize": 3036,
 		"inputAbbreviatedPath": "\/assets\/grey\/tile_grey.png",
 		"outputAbbreviatedPath": "\/assets\/grey\/tile_grey.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/assets\/menu\/choose.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 119874,
+		"inputAbbreviatedPath": "\/assets\/menu\/choose.png",
+		"outputAbbreviatedPath": "\/assets\/menu\/choose.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/assets\/menu\/tile_blue_fancy.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 22525,
+		"inputAbbreviatedPath": "\/assets\/menu\/tile_blue_fancy.png",
+		"outputAbbreviatedPath": "\/assets\/menu\/tile_blue_fancy.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/assets\/menu\/tile_red_fancy.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 21790,
+		"inputAbbreviatedPath": "\/assets\/menu\/tile_red_fancy.png",
+		"outputAbbreviatedPath": "\/assets\/menu\/tile_red_fancy.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/assets\/menu\/tile_yellow_fancy.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 22752,
+		"inputAbbreviatedPath": "\/assets\/menu\/tile_yellow_fancy.png",
+		"outputAbbreviatedPath": "\/assets\/menu\/tile_yellow_fancy.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -582,6 +692,17 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/min\/server-min.js",
 		"outputAbbreviatedPath": "\/js\/min\/min\/server-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/server.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/server.js",
+		"outputAbbreviatedPath": "\/js\/min\/server-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,

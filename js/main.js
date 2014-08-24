@@ -34,6 +34,8 @@ var teams = {};
 
 var team;
 
+var resizeEvents = [];
+
 
 /*
  * Entry point, gets called on game start
@@ -114,6 +116,9 @@ function gameInit() {
   // initalize the main stage
   stage = new createjs.Stage('stage');
 
+  // enable touch devices
+  createjs.Touch.enable(stage);
+
   // set up the game loop
   createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
   createjs.Ticker.setFPS(60);
@@ -139,7 +144,7 @@ function mainMenu() {
   menu = new createjs.Container();
   stage.addChild(menu);
 
-  var logo = new createjs.Container();
+  var logo = menu.logo = new createjs.Container();
   var logoImg = new createjs.Bitmap(loader.getResult('logo'));
 
   var ch = new createjs.Sprite(
@@ -157,24 +162,25 @@ function mainMenu() {
       "blank"
   );
 
-
   logo.addChild(logoImg);
   logo.addChild(ch, oo, se);
 
   console.log(logo.getChildIndex(ch) + ', ' + logo.getChildIndex(oo) );
 
-  ch.x = -640;
-  oo.x = -140;
+  ch.x = -642;
+  oo.x = -142;
   se.x = 390;
 
   logoImg.x = - logoImg.getBounds().width / 2;
 
-  logo.x = canvas.width / 2;
-  logo.y = canvas.height * 1 / 4;
+  function resizeLogo() {
+    logo.x = canvas.width / 2;
+    logo.y = canvas.height * 1 / 4;
+  }
+  resizeEvents.push({func: resizeLogo, context: this});
+  resizeLogo();
 
   logo.scaleX = logo.scaleY = 0.5;
-
-  logo.on('tick', oscillate);
 
   var i = -1;
   _.each(teams, function (e, id) {
@@ -195,9 +201,6 @@ function mainMenu() {
 
     button.scaleX = button.scaleY = 0.5;
 
-    button.x = canvas.width / 2 + i * button.getBounds().width;
-    button.y = canvas.height * 2 / 3;
-
     button.on('click', function () {
       server.login(id);
       stage.removeChild(menu);
@@ -205,6 +208,15 @@ function mainMenu() {
     }); 
 
     button.i = i;
+
+    function resizeButton() {
+      this.x = canvas.width / 2 + this.i * this.getBounds().width;
+      this.y = canvas.height * 2 / 3;
+      console.log(this);
+    }
+    resizeEvents.push({func: resizeButton, context: button});
+    resizeButton.apply(button);
+
 
     console.log(logo.children);
 
@@ -223,6 +235,10 @@ function mainMenu() {
     button.cursor = 'pointer';
 
     menu.addChild(button);
+
+    button.animOffset = button.i * 100;
+
+    button.on('tick', oscillate);
 
     i++;
 
@@ -508,7 +524,9 @@ function sortByRow(a, b) {
  */
 function oscillate(e) {
   _.each(this.children, function (e) { 
-    e.y = -( Math.sin(createjs.Ticker.getTime() / 500)) * 8;
+    this.animOffset = this.animOffset || 0;
+    //console.log(this);
+    e.y = -( Math.sin(this.animOffset + createjs.Ticker.getTime() / 500) ) * 8;
   });
 }
 
@@ -582,6 +600,9 @@ function onResize() {
     cam.y = canvas.height / 2;
   }
 
+  // call predefined resizeEvents
+  _.each(resizeEvents, function (e) { e.func.apply(e.context); });
+
 }
 
 
@@ -597,4 +618,3 @@ function fadeOut(target) {
 
 // start the game
 init();
-
