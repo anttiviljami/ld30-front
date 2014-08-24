@@ -128,7 +128,7 @@ function gameInit() {
   maskBounds = new createjs.Bitmap(loader.getResult('tile_mask')).getBounds();
 
   // DEBUG: Generate some random tiles
-  generateRandomTiles();
+  //generateRandomTiles();
 
 
   _.each(server.teams, function(e) { teams[e.id] = e.color; });
@@ -137,8 +137,11 @@ function gameInit() {
   team = server.user.team;
 
   _.each(server.hexes, function(e) {
-    //var tile = new Datacenter(e.q, e.r, e.type, e.owner);
+    var tile = new Datacenter(e.q, e.r, e.type, e.owner);
+    console.log(e);
   });
+
+  sortDraw = true; // recalculate draw order
 
   // listen to events from websocket
   dpd.on('hex:create', function(e) {

@@ -76,8 +76,8 @@ function onMouseMove(e) {
     
       // store tiles in connection path array
       if(!_.contains(connectionPath, JSON.stringify({q: e.q, r: e.r}))) {
-        connectionPath.push(JSON.stringify({q: e.q, r: e.r}));
-        PathNode(e.q, e.r, team);
+        if(!getTile(e.q, e.r))
+          connectionPath.push(JSON.stringify({q: e.q, r: e.r}));
       };
 
     });
@@ -114,9 +114,19 @@ function onMouseMove(e) {
 function onMouseUp(e) {
   if ( e.nativeEvent.button === 0 ) { 
     drawing = false;
+
+    //render connectionPath
     connectionPath = _.map(connectionPath, function(e) { return JSON.parse(e) })
+    
+    _.each(connectionPath, function(p) {
+      console.log(p);
+      new PathNode(p.q, p.r, team);
+    });
+
     // 
     console.log(JSON.stringify(connectionPath));
+
+
 
     //server.createConnection(connectionPath);
   }
