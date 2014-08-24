@@ -221,7 +221,7 @@ function PointerTile(q, r) {
   map.addChild(pointerTile);
   sortDraw = true; // recalculate draw order
 
-  return pointerTile;
+  return this;
 }
 
 /*
