@@ -44,13 +44,6 @@ function onMouseDown(e) {
     // DEBUG: log the mouse coordinate 
     console.log(pointToCoord(currPoint));
 
-    if(lastCoord) {
-      _.each(pathFind(lastCoord, currCoord), function (e) {
-        PointerTile(e.q, e.r);
-      });
-    }
-
-    lastCoord = currCoord;
   } 
 
   if (e.nativeEvent.button === 2) { // right mouse button pressed    
@@ -84,7 +77,7 @@ function onMouseMove(e) {
       // store tiles in connection path array
       if(!_.contains(connectionPath, JSON.stringify({q: e.q, r: e.r}))) {
         connectionPath.push(JSON.stringify({q: e.q, r: e.r}));
-        PointerTile(e.q, e.r);
+        PathNode(e.q, e.r);
       };
 
     });
@@ -122,7 +115,10 @@ function onMouseUp(e) {
   if ( e.nativeEvent.button === 0 ) { 
     drawing = false;
     connectionPath = _.map(connectionPath, function(e) { return JSON.parse(e) })
+    // 
     console.log(JSON.stringify(connectionPath));
+
+    server.createConnection(connectionPath);
   }
   if ( e.nativeEvent.button === 2 ) { 
     dragging = false;
