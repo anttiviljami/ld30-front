@@ -44,6 +44,7 @@ function Datacenter(q, r, type, owner) {
     
   // create random structure sprite
   var tileStructureSprite = new createjs.Bitmap(loader.getResult(type + '_' + colour));
+  var tileStructureAnimation;
   switch(type) {
     case 'server':
       tileStructureSprite.x = 7;
@@ -52,10 +53,22 @@ function Datacenter(q, r, type, owner) {
     case 'dome':
       tileStructureSprite.x = 8;
       tileStructureSprite.y = -16;
+      tileStructureAnimation = new createjs.Sprite(
+        new createjs.SpriteSheet(loader.getResult("dome_flash_data")),
+        "dome_flash"       
+      );
+      tileStructureAnimation.x = 0;
+      tileStructureAnimation.y = -16;
       break;
     case 'factory':
       tileStructureSprite.x = 10;
       tileStructureSprite.y = -80;
+      tileStructureAnimation = new createjs.Sprite(
+        new createjs.SpriteSheet(loader.getResult("factory_smoke_data")),
+        "factory_smoke"       
+      );
+      tileStructureAnimation.x = 61;
+      tileStructureAnimation.y = -144;
       break;  
   }
     
@@ -71,6 +84,7 @@ function Datacenter(q, r, type, owner) {
   tileSpriteContainer.addChild(tileSprite);
   tileSpriteContainer.addChild(tileTransferAnimation);
   tileSpriteContainer.addChild(tileStructureSprite);
+  tileSpriteContainer.addChild(tileStructureAnimation);
     
   // add tileSpriteContainer into tile itself
   tile.addChild(tileSpriteContainer);

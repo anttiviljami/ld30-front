@@ -72,6 +72,10 @@ function init() {
     {src:'assets/animations/pulsate_reverse.json', id:'pulsate_reverse_data'},
     {src:'assets/animations/circle_dark.json', id:'circle_dark_data'},
     {src:'assets/animations/transfer.json', id:'transfer_data'},
+      
+    // structure animations
+    {src:'assets/animations/dome_flash.json', id:'dome_flash_data'},
+    {src:'assets/animations/factory_smoke.json', id:'factory_smoke_data'},
   ];
 
   //Connect to server
