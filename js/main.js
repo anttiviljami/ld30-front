@@ -159,8 +159,14 @@ function gameInit() {
 
   dpd.on('connection:created', function(e) {
     console.log(e);
-    var sfx = new Audio('assets/CashRegister.mp3');
-    sfx.play();
+
+    // render endpoints
+    new PathNode(e.startQ, e.startR, e.team);
+    new PathNode(e.endQ, e.endR, e.team);
+
+    _.each(e.route, function(p) {
+      new PathNode(p.q, p.r, e.team);
+    });
   });
 
   dpd.on('connection:updated', function(e) {
@@ -169,11 +175,9 @@ function gameInit() {
     sfx.play();
   });
 
-
-
-      var tile = new Datacenter(1, 2);
-      var tile = new Datacenter(5, 6);
-      var tile = new Datacenter(10, 11);
+  var tile = new Datacenter(1, 2);
+  var tile = new Datacenter(5, 6);
+  var tile = new Datacenter(10, 11);
 
 }
 

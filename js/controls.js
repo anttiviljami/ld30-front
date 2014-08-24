@@ -120,8 +120,9 @@ function onMouseUp(e) {
     
     _.each(connectionPath, function(p) {
       console.log(p);
-      new PathNode(p.q, p.r, team);
     });
+
+    server.createConnection(connectionPath);
 
     // 
     console.log(JSON.stringify(connectionPath));

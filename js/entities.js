@@ -59,9 +59,11 @@ function Datacenter(q, r, type, owner) {
     
   // create transfer animation
   var tileTransferAnimation = new createjs.Sprite(
-    new createjs.SpriteSheet(loader.getResult("transfter_data")),
-      "transfer"
+    new createjs.SpriteSheet(loader.getResult("transfer_data")),
+      "blank"
   );
+
+  tileTransferAnimation.y -= 30;
 
   // add the sprites into sprite container
   tileSpriteContainer.addChild(tileSprite);
