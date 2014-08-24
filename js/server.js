@@ -77,7 +77,30 @@ Server.prototype = {
         return result;
       });
     },
-    createConnection:function () {
-      console.log("added connection");
+    /**
+     * Player can create connections between servers
+     * @param startQ,startR,endQ,endR  
+     * => coordinates of start and end points
+     * @param route
+     * => array of point objects between start and end eg. [{q:1,r:1},{q:1,r:2}]
+     */
+    /*createConnection: function (startQ,startR,endQ,endR,route) {
+      dpd.connections.post({startQ: startQ, startR: startR, endQ: endQ, endR: endR, route: route}, function({
+        //TODO
+        if(err) return console.log(err);
+      });
+    },*/
+    /**
+     * Player can prevent others from connecting to server by rebooting it
+     * @param qCoord, rCoord  
+     * => coordinates of hex
+     */
+    rebootNode: function (qCoord,rCoord) {
+      dpd.hexes.get({q: qCoord, r: rCoord}, function(hex,err) {
+        if(err) return console.log(err);
+        dpd.hexes.put(hex.id,{whenAvailableForUse: Date.now()+5000}, function(result,err) {
+          if(err) return console.log(err);
+        })
+      })
     }
 }
