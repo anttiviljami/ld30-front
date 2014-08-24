@@ -9,7 +9,7 @@
 
 
 // main game objects
-var stage, canvas, loader;
+var stage, canvas, loader, menu;
 
 // camera and game world container
 var cam, map;
@@ -40,6 +40,12 @@ var team;
  */
 function init() {
   var manifest = [
+
+    // menu
+    {src:'assets/menu/choose.png', id:'logo'},
+    {src:'assets/menu/tile_blue_fancy.png', id:'tile_blue_fancy'},
+    {src:'assets/menu/tile_red_fancy.png', id:'tile_red_fancy'},
+    {src:'assets/menu/tile_yellow_fancy.png', id:'tile_yellow_fancy'},
 
     // hex tile shape and dimensions
     {src:'assets/tile_mask.png', id:'tile_mask'},
@@ -103,7 +109,53 @@ function gameInit() {
   createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
   createjs.Ticker.setFPS(60);
   createjs.Ticker.addEventListener('tick', onTick);
-  createjs.Ticker.addEventListener('tick', onTick);
+
+  // canvas should fill the browser window
+  window.addEventListener('resize', onResize);
+  onResize();
+
+  startConnections();
+
+  mainMenu();
+  //startGame();
+
+}
+
+
+/*
+ * Displays the main menu
+ */
+function mainMenu() {
+
+  menu = new createjs.Container();
+  stage.addChild(menu);
+
+  var logo = new createjs.Container();
+  var logoImg = new createjs.Bitmap(loader.getResult('logo'));
+  logo.addChild(logoImg);
+
+  logoImg.x = - logoImg.getBounds().width / 2;
+
+  logo.x = canvas.width / 2;
+  logo.y = canvas.height * 1 / 4;
+
+  logo.scaleX = logo.scaleY = 0.5;
+
+  /*for (var i = 0; i < logos.length) {
+
+  }*/
+
+  
+
+  menu.addChild(logo);
+
+}
+
+
+/*
+ * Starts the game
+ */
+function startGame() {
 
   // the game camera
   cam = new createjs.Container(); 
@@ -112,10 +164,6 @@ function gameInit() {
   // the game world
   map = new createjs.Container();
   cam.addChild(map);
-
-  // canvas should fill the browser window
-  window.addEventListener('resize', onResize);
-  onResize();
 
   // initial scale is 50%
   cam.scaleX = cam.scaleY = .75;
@@ -132,25 +180,25 @@ function gameInit() {
   // DEBUG: Generate some random tiles
   //generateRandomTiles();
 
-
+  // load available teams
   _.each(server.teams, function(e) { teams[e.id] = e.color; });
 
-  // get your team id
-  team = server.user.team;
+  //TODO: add overlay login screen
+  //console.log(server.teams);
+  //server.login();
 
-  console.log(server.startHex);
+  // get your team id and login
+  //team = server.user.team;
 
-  /*if(typeof server.startHex === 'object') {
+  if(typeof server.startHex.q === 'number') {
+    //player is logged in
     var home = coordToPoint({q: server.startHex.q, r: server.startHex.r});
     map.x = -home.x;
     map.y = -home.y;
-  }*/
-
-  console.log(server.startHex);
+  }
 
   _.each(server.hexes, function(e) {
     var tile = new Datacenter(e.q, e.r, e.type, e.owner);
-    console.log(e);
   });
 
   _.each(server.connections, function(e) {
@@ -165,22 +213,23 @@ function gameInit() {
 
   sortDraw = true; // recalculate draw order
 
+  onResize();
+}
+
+
+function startConnections() { 
   // listen to events from websocket
   dpd.on('hex:create', function(e) {
-    console.log(e);
     var sfx = new Audio('assets/CashRegister.mp3');
     sfx.play();
   });
 
   dpd.on('hex:updated', function(e) {
-    console.log(e);
     var sfx = new Audio('assets/CashRegister.mp3');
     sfx.play();
   });
 
   dpd.on('connection:created', function(e) {
-    console.log(e);
-
     // render endpoints
     new PathNode(e.startQ, e.startR, e.team);
     new PathNode(e.endQ, e.endR, e.team);
@@ -191,13 +240,11 @@ function gameInit() {
   });
 
   dpd.on('connection:updated', function(e) {
-    console.log(e);
     var sfx = new Audio('assets/CashRegister.mp3');
     sfx.play();
   });
 
   dpd.on('game:started', function(e) {
-    console.log(e);
     var sfx = new Audio('assets/CashRegister.mp3');
     sfx.play();
   });
@@ -210,7 +257,7 @@ function gameInit() {
  */
 function onTick(e) {
   
-  if(sortDraw) {
+  if(sortDraw && map) {
     // recalculate the draw order
     map.sortChildren(sortByRow);
     sortDraw = false;
@@ -441,8 +488,11 @@ function onResize() {
   canvas.height = document.body.clientHeight; 
 
   // center camera
-  cam.x = canvas.width / 2;
-  cam.y = canvas.height / 2;
+  if(typeof camera === 'object') {
+    cam.x = canvas.width / 2;
+    cam.y = canvas.height / 2;
+  }
+
 }
 
 

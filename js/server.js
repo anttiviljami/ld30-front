@@ -15,20 +15,24 @@ function Server() {
 }
 
 dpd.on('hex:create', function(hex) {
-  console.log('Something happened on socket');
-  console.log(hex);
+//  console.log('Something happened on socket');
+//  console.log(hex);
 });
 
 dpd.on('hex:update', function(hex) {
-  console.log('Something happened on socket');
-  console.log(hex);
+//  console.log('Something happened on socket');
+//  console.log(hex);
 });
 
+dpd.on('game:start', function(e) {
+  //refresh the browser once the game is done reloading
+  location.reload();
+});
 
 Server.prototype = {
     constructor: Server,
     init:function ()  {
-        console.log(this);
+        //console.log(this);
         var _this = this;
         //get tick and game latest gameinfo
         dpd.games.get({$sort: {startTime: -1}, $limit: 1}, function(game,err) {
@@ -96,8 +100,6 @@ Server.prototype = {
       var routeStart = _.first(route);
       var routeEnd = _.last(route);
       var query_object = {startQ: routeStart.q, startR: routeStart.r, endQ: routeEnd.q, endR: routeEnd.r, route: routeWithoutEnds};
-      console.log("Creating this connection:");
-      console.log(query_object);
       dpd.connections.post(query_object, function(result,err){
         //TODO
         if(err) return console.log(err);
