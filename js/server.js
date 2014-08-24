@@ -28,7 +28,9 @@ Server.prototype = {
         //and login
         dpd.users.login({username: randomUser,password: randomUser}, function(user,err) {
           if(err) return console.log(err);
-          _this.user = user;
+          dpd.users.get(user.uid, function(userInfo,err) {
+            _this.user = userInfo;
+          });
         });
         //get tick and game latest gameinfo
         dpd.games.get({$sort: {startTime: -1}, $limit: 1}, function(game,err) {
