@@ -96,7 +96,7 @@ function onMouseMove(e) {
     // store tiles in connection path array
     if(!_.contains(connectionPath, JSON.stringify(currCoord))) {
       connectionPath.push(JSON.stringify(currCoord));
-      PointerTile(currCoord.q, currCoord.r);
+      //PointerTile(currCoord.q, currCoord.r);
     };
 
   }

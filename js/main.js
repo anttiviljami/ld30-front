@@ -24,11 +24,13 @@ var drawing = dragging = false;
 // controls whether to recalculate draw order
 var sortDraw = true;
 
+// backend data sync
+var server = {};
+
 // a multi-dimensional collection of game tiles
 var tiles = {};
 
-// a multi-dimensional collection for keeping in sync with backend
-var server = {};
+var teams = {};
 
 
 /*
@@ -124,7 +126,13 @@ function gameInit() {
   maskBounds = new createjs.Bitmap(loader.getResult('tile_mask')).getBounds();
 
   // DEBUG: Generate some random tiles
-  generateRandomTiles();
+  //generateRandomTiles();
+
+  _.each(server.teams, function (e) { teams[e.id] = e.color; });
+
+  _.each(server.hexes, function(e) {
+    var tile = new Datacenter(e.q, e.r, e.owner, e.type);
+  });
 }
 
 
