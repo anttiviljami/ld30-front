@@ -1,0 +1,28 @@
+{
+"images": ["assets/animations/server_flash.png"],
+"frames": [
+
+    [2, 2, 93, 113], 
+    [97, 2, 93, 113], 
+    [192, 2, 93, 113], 
+    [287, 2, 93, 113], 
+    [382, 2, 93, 113], 
+    [477, 2, 93, 113], 
+    [572, 2, 93, 113],
+	[0,0,0,0]
+],
+"animations": {
+
+    "server_flash": {
+      "frames": [0,1,2,3,4,5,6]
+    },
+    "blank": {
+      "frames": [7]
+    }
+},
+"texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:47c14c49990260f81539c2206ad52d4e:d2f8f18ef7d27dbe7e178102a92d1fd8:930f84b92d9598cc3f6d5f62fb07f685$",
+        "Created with TexturePacker (http://www.texturepacker.com) for EaselJS"
+],
+"framerate":1
+}
