@@ -11,7 +11,7 @@
 /*
  * Adds a Datacenter node of a certain colour
  */
-function Datacenter(colour, q, r) {
+function Datacenter(q, r, type, owner) {
 
   // save into the global tiles collection
   if(!tiles[q]) {
@@ -21,6 +21,13 @@ function Datacenter(colour, q, r) {
   
   // create the tile container
   var tile = new createjs.Container();
+  
+  var colour = teams[owner]; // colour can be fetched from teams 
+  if(typeof colour === 'undefined') {
+    colour = 'gray'; //grey
+  }
+
+  //console.log(type+"_"+colour)
 
   // retain the coordinate and the colour
   tile.colour = colour;
@@ -34,21 +41,17 @@ function Datacenter(colour, q, r) {
   var tileSprite = new createjs.Bitmap(loader.getResult("tile_" + colour));
     
   // create random structure sprite
-  var tileStructureSprite;
-  var rand = Math.round(Math.random() * 2);
-  switch(rand) {
-    case 0:
-      tileStructureSprite = new createjs.Bitmap(loader.getResult("server_" + colour));
+  var tileStructureSprite = new createjs.Bitmap(loader.getResult(type + '_' + colour));
+  switch(type) {
+    case 'server':
       tileStructureSprite.x = 32;
       tileStructureSprite.y = -48;
       break;
-    case 1:
-      tileStructureSprite = new createjs.Bitmap(loader.getResult("dome_" + colour));
+    case 'dome':
       tileStructureSprite.x = 26;
       tileStructureSprite.y = 2;
-       break;
-    case 2:
-      tileStructureSprite = new createjs.Bitmap(loader.getResult("factory_" + colour));
+      break;
+    case 'factory':
       tileStructureSprite.x = 25;
       tileStructureSprite.y = -44;
       break;  
@@ -94,3 +97,34 @@ function Datacenter(colour, q, r) {
   // return the itself
   return this;
 }
+
+/*
+ * Creates a single Path Node that represents data flow
+ */
+function PathNode(q, r, owner, phase) {
+  
+  var colour = teams[owner]; // colour can be fetched from teams 
+  if(typeof colour === 'undefined') {
+    colour = 'gray'; //grey
+  }
+
+  pathNode = new createjs.Container();
+  pathNode.addChild(new createjs.Bitmap(loader.getResult('tile_' + colour)));
+
+  // save coordinates
+  pathNode.q = q;
+  pathNode.r = r;
+
+  // position the block
+  var pos = coordToPoint({q: q, r: r});
+  pathNode.x = pos.x;
+  pathNode.y = pos.y;
+  
+  //pathNode.alpha = .4; // transparency
+
+  map.addChild(pathNode);
+  sortDraw = true; // recalculate draw order
+
+  return this;
+}
+
