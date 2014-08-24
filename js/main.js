@@ -147,6 +147,48 @@ function mainMenu() {
 
   logo.scaleX = logo.scaleY = 0.5;
 
+  logo.on('tick', oscillate);
+
+  var i = -1;
+  _.each(teams, function (e, id) {
+
+    var button = new createjs.Container();
+    var buttonImg = new createjs.Bitmap(loader.getResult('tile_' + e + '_fancy'));
+    var buttonAnimation = new createjs.Sprite(
+      new createjs.SpriteSheet(loader.getResult("fancy_tile_pulsate_data")),
+      "fancy_tile_pulsate"
+    );
+
+    buttonAnimation.x = buttonImg.x = - buttonImg.getBounds().width / 2;
+
+    button.addChild(buttonImg);
+    button.addChild(buttonAnimation);
+
+    console.log(i);
+
+    button.scaleX = button.scaleY = 0.5;
+
+    button.x = canvas.width / 2 + i * button.getBounds().width;
+    button.y = canvas.height * 2 / 3;
+
+    button.on('click', function () {
+      server.login(id);
+      stage.removeChild(menu);
+      startGame();
+    });
+
+    
+    
+
+    stage.enableMouseOver(10);
+    button.cursor = 'pointer';
+
+    menu.addChild(button);
+
+    i++;
+
+  });
+
   /*for (var i = 0; i < logos.length) {
 
   }*/
@@ -186,9 +228,6 @@ function startGame() {
   // DEBUG: Generate some random tiles
   //generateRandomTiles();
 
-  // load available teams
-  _.each(server.teams, function(e) { teams[e.id] = e.color; });
-
   //TODO: add overlay login screen
   //console.log(server.teams);
   //server.login();
@@ -224,6 +263,10 @@ function startGame() {
 
 
 function startConnections() { 
+
+  // load available teams
+  _.each(server.teams, function(e) { teams[e.id] = e.color; });
+
   // listen to events from websocket
   dpd.on('hex:create', function(e) {
     var sfx = new Audio('assets/CashRegister.mp3');
@@ -265,6 +308,7 @@ function onTick(e) {
   
   if(sortDraw && map) {
     // recalculate the draw order
+    map.sortChildren(sortByRow);
     map.sortChildren(sortByRow);
     sortDraw = false;
   }
@@ -411,8 +455,8 @@ function generateRandomTiles() {
  * Draw order sorter
  */
 function sortByRow(a, b) {
-  var aIndex = 20000 * a.r + 10000 * !(a.q % 2 == 0) + a.q; // trivial
-  var bIndex = 20000 * b.r + 10000 * !(b.q % 2 == 0) + b.q; // easy, isn't it?
+  var aIndex = 20000 * a.r + 10000 * !(a.q % 2 == 0) + a.q + a.id; // trivial
+  var bIndex = 20000 * b.r + 10000 * !(b.q % 2 == 0) + b.q + b.id; // easy, isn't it?
 
   if (aIndex < bIndex) return -1;
   if (aIndex > bIndex) return 1;
