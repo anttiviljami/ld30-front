@@ -24,11 +24,13 @@ var drawing = dragging = false;
 // controls whether to recalculate draw order
 var sortDraw = true;
 
+// backend data sync
+var server = {};
+
 // a multi-dimensional collection of game tiles
 var tiles = {};
 
-// a multi-dimensional collection for keeping in sync with backend
-var server = {};
+var teams = {};
 
 
 /*
@@ -125,6 +127,21 @@ function gameInit() {
 
   // DEBUG: Generate some random tiles
   generateRandomTiles();
+
+  _.each(server.teams, function(e) { teams[e.id] = e.color; });
+
+  _.each(server.hexes, function(e) {
+    //var tile = new Datacenter(e.q, e.r, e.type, e.owner);
+  });
+
+  // listen to events from websocket
+  dpd.on('hex:create', function(e) {
+    console.log(e);
+    var sfx = new Audio('assets/CashRegister.mp3');
+    sfx.play();
+  });
+
+  console.log(pathFind({q: 0, r: 0}, {q: 1, r: 1}));
 }
 
 
@@ -180,7 +197,7 @@ function pointToCoord(point) {
  
   // then we populate the general area with test tiles
   for (var r = -1; r <= 1; ++r) { 
-    for (var q = -1; q <= 1; ++q) { //TODO: optimise sample sizes
+    for (var q = 0; q >= -1; --q) { 
       
       // spawn a test bitmap
       var test = new createjs.Bitmap(loader.getResult('tile_mask'));
@@ -206,6 +223,23 @@ function pointToCoord(point) {
   }
 }
 
+
+/*
+ * Returns the distance between two points
+ */
+function distance(point0, point1) {
+  if(typeof point0 != 'object' || typeof point1 != 'object') return 0;
+  return Math.sqrt(Math.pow(point0.x - point1.x, 2) + Math.pow(point0.y - point1.y, 2));
+}
+
+/*
+ * Returns a parallel vector with a length of one
+ */
+function normalize(point) {
+  if(typeof point != 'object') return 0;
+  var length = distance(point, {x: 0, y: 0});
+  return {x: point.x / length, y: point.y / length};
+}
 
 /*
  * Display a visible pointer tile at coordinate
@@ -240,28 +274,22 @@ function generateRandomTiles() {
   for (var r = 0; r < 12; ++r) {
     for (var q = 1; q < 15; ++q) {
       
-      var color;
+      var type;
       var rand = Math.round(Math.random() * 4);
       
       switch(rand) {
-        case 0: color = "gray";
+        case 0: type = "server";
           break;
-        case 1: color = "yellow";
+        case 1: type = "dome";
           break;
-       case 2: color = "blue";
-          break;
-        case 3: color = "red";
+        case 2: type = "factory";
           break;
       }
       
       // adds a tile
-      var tile = new Datacenter(color, q, r);
+      var tile = new Datacenter(q, r, type);
     }
   }
-  
-  // DEBUG: Adds a single tile
-  var tile2 = new Datacenter("blue" , 25, 0);
-
 }
 
 
@@ -289,6 +317,65 @@ function oscillate(e) {
 
 
 /*
+ * Returns the shortest path between two coordinates
+ */
+function pathFind(coord0, coord1) {
+  
+  var path = [];
+
+  //starting point
+  var pathCoord = coord0;
+
+  //we're not done until we get there
+  while(JSON.stringify(pathCoord) != JSON.stringify(coord1)) {
+
+    path.push(pathCoord);
+    console.log(distance(coordToPoint(pathCoord), coordToPoint(coord1)));
+
+    //sort neighbours by distance to target
+    pathCoord = neighbours(pathCoord).sort(function (a, b) {
+      if(distance(coordToPoint(a), coordToPoint(coord1)) 
+        < distance(coordToPoint(b), coordToPoint(coord1))) {
+          //a is better
+        return -1;
+      }
+      if(distance(coordToPoint(a), coordToPoint(coord1)) 
+        > distance(coordToPoint(b), coordToPoint(coord1))) {
+          //b is better
+        return 1;
+      }
+      return 0;
+    })[0];
+
+  }
+
+  path.push(coord1);
+  return path;
+}
+
+/*
+ * Returns neighbouring coordinates
+ */
+function neighbours(coord) {
+
+  var offsets = [
+   [ [+1,  0], [+1, -1], [ 0, -1],
+     [-1, -1], [-1,  0], [ 0, +1] ],
+   [ [+1, +1], [+1,  0], [ 0, -1],
+     [-1,  0], [-1, +1], [ 0, +1] ]
+  ];
+
+  var ret = _.map(offsets[(coord.q % 2 == 0) ? 1 : 0], function(e) {
+    return {q: coord.q + e[0], r: coord.r + e[1]};
+  });
+
+  console.log('neighbors');
+  console.log(ret);
+
+  return ret;
+}
+
+/*
  * Gets called whenever the browser window resizes
  */
 function onResize() {
@@ -303,3 +390,4 @@ function onResize() {
 
 // start the game
 init();
+

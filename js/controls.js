@@ -11,8 +11,8 @@
 var drawing = dragging = false;
 
 // miscellaneous
-var dragOrigin, currentTile, currentPoint, currentCoord, prevCoord, 
-    connectionPath, pointerTile;
+var dragOrigin, currTile, currPoint, currCoord, prevCoord, prevPoint,
+    connectionPath, pointerTile, lastCoord;
 
 /*
  * Sets up event listeners for controls
@@ -29,20 +29,28 @@ function initControls() {
 function onMouseDown(e) {
 
   // mouse position in game world as a point
-  currentPoint = map.globalToLocal(e.stageX, e.stageY);
+  currPoint = map.globalToLocal(e.stageX, e.stageY);
   // mouse position in game world as a coordinate
-  currentCoord = pointToCoord(currentPoint);
+  currCoord = pointToCoord(currPoint);
   // the tile at the mouse's coordinate
-  currentTile = getTile(currentCoord.q, currentCoord.r);
+  currTile = getTile(currCoord.q, currCoord.r);
 
   if (e.nativeEvent.button === 0) { // left mouse button pressed
     drawing = true;
 
     // start drawing a connection path from current coordinate
-    connectionPath = [ JSON.stringify(currentCoord) ];
+    connectionPath = [ JSON.stringify(currCoord) ];
 
     // DEBUG: log the mouse coordinate 
-    console.log(pointToCoord(currentPoint));
+    console.log(pointToCoord(currPoint));
+
+    if(lastCoord) {
+      _.each(pathFind(lastCoord, currCoord), function (e) {
+        PointerTile(e.q, e.r);
+      });
+    }
+
+    lastCoord = currCoord;
   } 
 
   if (e.nativeEvent.button === 2) { // right mouse button pressed    
@@ -54,6 +62,7 @@ function onMouseDown(e) {
       y: e.stageY - map.y * cam.scaleY,
     };
   } 
+
 }
 
 /*
@@ -62,17 +71,24 @@ function onMouseDown(e) {
 function onMouseMove(e) {
 
   // mouse position in game world as a point
-  currentPoint = map.globalToLocal(e.stageX, e.stageY);
+  currPoint = map.globalToLocal(e.stageX, e.stageY);
   // mouse position in game world as a coordinate
-  currentCoord = pointToCoord(currentPoint);
+  currCoord = pointToCoord(currPoint);
   // the tile at the mouse's coordinate
-  currentTile = getTile(currentCoord.q, currentCoord.r);
+  currTile = getTile(currCoord.q, currCoord.r);
 
   if(drawing) { // left mouse button down
-    // store tiles in connection path array
-    if(!_.contains(connectionPath, JSON.stringify(currentCoord))) {
-      connectionPath.push(JSON.stringify(currentCoord));
-    };
+    
+    _.each(pathFind(prevCoord, currCoord), function(e) {
+    
+      // store tiles in connection path array
+      if(!_.contains(connectionPath, JSON.stringify({q: e.q, r: e.r}))) {
+        connectionPath.push(JSON.stringify({q: e.q, r: e.r}));
+        PointerTile(e.q, e.r);
+      };
+
+    });
+
   }
 
   if(dragging) { // right mouse button down
@@ -81,21 +97,21 @@ function onMouseMove(e) {
     map.y = (e.stageY - dragOrigin.y) / cam.scaleY;
   }
 
-  if(JSON.stringify(prevCoord) != JSON.stringify(currentCoord)) {
+  if(JSON.stringify(prevCoord) != JSON.stringify(currCoord)) {
     // coordinate has changed since last move event
 
     // remove the pointer tile
     map.removeChild(pointerTile);
 
-    if(!currentTile) { // are we hovering on an empty block?
+    if(!currTile) { // are we hovering on an empty block?
       // display a pointer tile at coordinate
-      new PointerTile(currentCoord.q, currentCoord.r);
+      new PointerTile(currCoord.q, currCoord.r);
     } 
   }
 
-  // retain last coord
-  prevCoord = currentCoord;
-
+  // retain last values
+  prevCoord = currCoord;
+  prevPoint = currPoint;
 }
 
 
