@@ -173,7 +173,7 @@ function pointToCoord(point) {
  
   // then we populate the general area with test tiles
   for (var r = -1; r <= 1; ++r) { 
-    for (var q = -1; q <= 1; ++q) { //TODO: optimise sample sizes
+    for (var q = 0; q >= -1; --q) { 
       
       // spawn a test bitmap
       var test = new createjs.Bitmap(loader.getResult('tile_mask'));
@@ -199,6 +199,25 @@ function pointToCoord(point) {
   }
 }
 
+
+/*
+ * Returns the distance between two points
+ */
+function distance(point0, point1) {
+  console.log(point0);
+  console.log(point1);
+  if(typeof point0 != 'object' || typeof point1 != 'object') return 0;
+  return Math.sqrt(Math.pow(point0.x - point1.x, 2) + Math.pow(point0.y - point1.y, 2));
+}
+
+/*
+ * Returns a parallel vector with a length of one
+ */
+function normalize(point) {
+  if(typeof point != 'object') return 0;
+  var length = distance(point, {x: 0, y: 0});
+  return {x: point.x / length, y: point.y / length};
+}
 
 /*
  * Display a visible pointer tile at coordinate
