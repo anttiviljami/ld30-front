@@ -80,6 +80,9 @@ function init() {
     {src:'assets/animations/transfer.json', id:'transfer_data'},
 
     {src:'assets/animations/fancy_tile_pulsate.json', id:'fancy_tile_pulsate_data'},
+    {src:'assets/animations/menu_ch_pulsate.json', id:'menu_ch_pulsate_data'},
+    {src:'assets/animations/menu_oo_pulsate.json', id:'menu_oo_pulsate_data'},
+    {src:'assets/animations/menu_se_pulsate.json', id:'menu_se_pulsate_data'},
       
     // structure animations
     {src:'assets/animations/dome_flash.json', id:'dome_flash_data'},
@@ -138,7 +141,31 @@ function mainMenu() {
 
   var logo = new createjs.Container();
   var logoImg = new createjs.Bitmap(loader.getResult('logo'));
+
+  var ch = new createjs.Sprite(
+    new createjs.SpriteSheet(loader.getResult("menu_ch_pulsate_data")),
+      "blank"
+  );
+
+  var oo = new createjs.Sprite(
+    new createjs.SpriteSheet(loader.getResult("menu_oo_pulsate_data")),
+      "blank"
+  );
+
+  var se = new createjs.Sprite(
+    new createjs.SpriteSheet(loader.getResult("menu_se_pulsate_data")),
+      "blank"
+  );
+
+
   logo.addChild(logoImg);
+  logo.addChild(ch, oo, se);
+
+  console.log(logo.getChildIndex(ch) + ', ' + logo.getChildIndex(oo) );
+
+  ch.x = -640;
+  oo.x = -140;
+  se.x = 390;
 
   logoImg.x = - logoImg.getBounds().width / 2;
 
@@ -156,7 +183,7 @@ function mainMenu() {
     var buttonImg = new createjs.Bitmap(loader.getResult('tile_' + e + '_fancy'));
     var buttonAnimation = new createjs.Sprite(
       new createjs.SpriteSheet(loader.getResult("fancy_tile_pulsate_data")),
-      "fancy_tile_pulsate"
+      "blank"
     );
 
     buttonAnimation.x = buttonImg.x = - buttonImg.getBounds().width / 2;
@@ -175,10 +202,22 @@ function mainMenu() {
       server.login(id);
       stage.removeChild(menu);
       startGame();
+    }); 
+
+    button.i = i;
+
+    console.log(logo.children);
+
+    button.on('rollover', function() {
+      var anims = ["ch", "oo", "se"];
+      logo.children[this.i + 2].gotoAndPlay('menu_'+ anims[this.i + 1] +'_pulsate');
+      this.children[1].gotoAndPlay('fancy_tile_pulsate');
     });
 
-    
-    
+    button.on('rollout', function() {
+      logo.children[this.i + 2].gotoAndStop(0);
+      this.children[1].gotoAndStop(0);
+    });
 
     stage.enableMouseOver(10);
     button.cursor = 'pointer';

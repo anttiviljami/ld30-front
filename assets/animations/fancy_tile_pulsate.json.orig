@@ -1,0 +1,65 @@
+<<<<<<< HEAD
+{
+"images": ["assets/animations/fancy_tile_pulsate.png"],
+"frames": [
+
+    [2, 2, 256, 182], 
+    [2, 186, 256, 182], 
+    [260, 2, 256, 182], 
+    [260, 186, 256, 182], 
+    [518, 2, 256, 182], 
+    [518, 186, 256, 182], 
+    [776, 2, 256, 182], 
+    [1034, 2, 256, 182], 
+    [776, 186, 256, 182], 
+    [1034, 186, 256, 182],
+	[0,0,0,0]
+],
+"animations": {
+    
+    "fancy_tile_pulsate": {
+      "frames": [0,1,2,3,4,5,6,7,8,8,9,9,9,9,8,8,7,6,5,4,3,2,1,0,10,10,10,10,10,10]
+    },
+    "blank": {
+      "frames": [10]
+    }
+},
+"texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:825bd8ba3a878a44eb8b7ff6ba4b486b:a209909d1bc663dae300d7dc51231ba3:c6cb7393e64cee41f725f88f2ff16750$",
+        "Created with TexturePacker (http://www.texturepacker.com) for EaselJS"
+],
+"framerate": 20
+}
+=======
+{
+"images": ["assets/animations/fancy_tile_pulsate.png"],
+"frames": [
+
+    [2, 2, 256, 182], 
+    [2, 186, 256, 182], 
+    [260, 2, 256, 182], 
+    [260, 186, 256, 182], 
+    [518, 2, 256, 182], 
+    [518, 186, 256, 182], 
+    [776, 2, 256, 182], 
+    [1034, 2, 256, 182], 
+    [776, 186, 256, 182], 
+    [1034, 186, 256, 182],
+	[0,0,0,0]
+],
+"animations": {
+    
+    "fancy_tile_pulsate": {
+      "frames": [0,1,2,3,4,5,6,7,8,8,9,9,9,9,8,8,7,6,5,4,3,2,1,0,10,10,10,10,10,10]
+    },
+    "blank": {
+      "frames": [10]
+    }
+},
+"texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:825bd8ba3a878a44eb8b7ff6ba4b486b:a209909d1bc663dae300d7dc51231ba3:c6cb7393e64cee41f725f88f2ff16750$",
+        "Created with TexturePacker (http://www.texturepacker.com) for EaselJS"
+],
+"framerate":20
+}
+>>>>>>> d646de494ee50765becf4266132ce71474333c54
