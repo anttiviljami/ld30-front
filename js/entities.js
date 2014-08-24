@@ -111,6 +111,8 @@ function Datacenter(q, r, type, owner) {
  * Creates a single Path Node that represents data flow
  */
 function PathNode(q, r, owner, phase) {
+
+  if(getTile(q, r) != undefined) return; // do nothing
   
   var colour = teams[owner]; // colour can be fetched from teams 
   if(typeof colour === 'undefined') {

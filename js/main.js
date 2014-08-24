@@ -137,9 +137,25 @@ function gameInit() {
   // get your team id
   team = server.user.team;
 
+  console.log(server.startHex);
+
+  var home = coordToPoint({q: server.startHex.q, r: server.startHex.r});
+  map.x = -home.x;
+  map.y = -home.y;
+
   _.each(server.hexes, function(e) {
     var tile = new Datacenter(e.q, e.r, e.type, e.owner);
     console.log(e);
+  });
+
+  _.each(server.connections, function(e) {
+    // render endpoints
+    new PathNode(e.startQ, e.startR, e.team);
+    new PathNode(e.endQ, e.endR, e.team);
+
+    _.each(e.route, function(p) {
+      new PathNode(p.q, p.r, e.team);
+    });
   });
 
   sortDraw = true; // recalculate draw order

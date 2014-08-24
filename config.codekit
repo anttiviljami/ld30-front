@@ -57,6 +57,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/assets\/animations\/transfer.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 7998,
+		"inputAbbreviatedPath": "\/assets\/animations\/transfer.png",
+		"outputAbbreviatedPath": "\/assets\/animations\/transfer.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/assets\/blue\/dome_blue.png": {
 		"fileType": 32768,
 		"ignore": 0,
