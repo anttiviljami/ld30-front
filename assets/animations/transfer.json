@@ -22,5 +22,6 @@
 "texturepacker": [
         "SmartUpdateHash: $TexturePacker:SmartUpdate:8f0e8cb45fc6a73e0b144aca671475b5:c3174a2976d31f3985a7eb0e421b04d2:256cb6e15494c4ad25ea2cac4250ed8c$",
         "Created with TexturePacker (http://www.texturepacker.com) for EaselJS"
-]
+],
+"framerate": 20
 }

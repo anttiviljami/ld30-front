@@ -166,6 +166,12 @@ function gameInit() {
     sfx.play();
   });
 
+
+
+      var tile = new Datacenter(1, 2);
+      var tile = new Datacenter(5, 6);
+      var tile = new Datacenter(10, 11);
+
 }
 
 
