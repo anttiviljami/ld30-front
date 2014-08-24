@@ -29,6 +29,7 @@ var server = {};
 
 // a multi-dimensional collection of game tiles
 var tiles = {};
+var plates = {};
 
 var teams = {};
 
@@ -234,7 +235,7 @@ function mainMenu() {
     stage.enableMouseOver(10);
     button.cursor = 'pointer';
 
-    menu.addChild(button);
+    button = menu.addChild(button);
 
     button.animOffset = button.i * 100;
 
@@ -382,6 +383,13 @@ function getTile(q, r) {
 
 
 /*
+ * Return a tile from the global tiles collection
+ */
+function getPlate(q, r) {
+  return plates[q] ? plates[q][r] : null;
+}
+
+/*
  * Converts a hex grid coordinate to a local point
  */
 function coordToPoint(coord) {
@@ -525,7 +533,8 @@ function sortByRow(a, b) {
 function oscillate(e) {
   _.each(this.children, function (e) { 
     this.animOffset = this.animOffset || 0;
-    //console.log(this);
+    if(this.animOffset != 0)
+      console.log(animOffset);
     e.y = -( Math.sin(this.animOffset + createjs.Ticker.getTime() / 500) ) * 8;
   });
 }

@@ -21,6 +21,7 @@ function initControls() {
   stage.addEventListener('stagemousedown', onMouseDown);
   stage.addEventListener('stagemouseup', onMouseUp);
   stage.addEventListener('stagemousemove', onMouseMove);
+  stage.addEventListener('touchstart', onTouchStart);
 }
 
 /*
@@ -39,7 +40,9 @@ function onMouseDown(e) {
     drawing = true;
 
     // start drawing a connection path from current coordinate
-    connectionPath = [ JSON.stringify(currCoord) ];
+    if(!getTile(currCoord.q, currCoord.r) && !getPlate(currCoord.q, currCoord.r)) {
+      connectionPath = [ JSON.stringify(currCoord) ];
+    }
 
     // DEBUG: log the mouse coordinate 
     console.log(pointToCoord(currPoint));
@@ -76,8 +79,14 @@ function onMouseMove(e) {
     
       // store tiles in connection path array
       if(!_.contains(connectionPath, JSON.stringify({q: e.q, r: e.r}))) {
-        if(!getTile(e.q, e.r))
+        if(!getTile(e.q, e.r) && !getPlate(e.q, e.r)) {
+          console.log(_.map(neighbours({q: e.q, r: e.r}), function(p) {
+            return getPlate(p);
+          }));
+          
           connectionPath.push(JSON.stringify({q: e.q, r: e.r}));
+          
+        }
       };
 
     });
@@ -133,3 +142,13 @@ function onMouseUp(e) {
     dragging = false;
   }
 }
+
+
+/*
+ * Touch events
+ */
+function onTouchStart() {
+  map.x = 0
+  map.y = 0;
+}
+
