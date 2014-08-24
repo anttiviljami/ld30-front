@@ -1,0 +1,26 @@
+{
+"images": ["assets/animations/transfer.png"],
+"frames": [
+
+    [2, 2, 121, 102], 
+    [125, 2, 121, 102], 
+    [248, 2, 121, 102], 
+    [371, 2, 121, 102], 
+    [494, 2, 121, 102], 
+    [617, 2, 121, 102],
+    [0,0,0,0]
+],
+"animations": {
+    
+    "transfer": {
+      "frames": [0,1,2,3,4,5,6]
+    },
+    "blank": {
+      "frames": [6]
+    }
+},
+"texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:8f0e8cb45fc6a73e0b144aca671475b5:c3174a2976d31f3985a7eb0e421b04d2:256cb6e15494c4ad25ea2cac4250ed8c$",
+        "Created with TexturePacker (http://www.texturepacker.com) for EaselJS"
+]
+}
