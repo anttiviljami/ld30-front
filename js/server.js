@@ -28,39 +28,27 @@ Server.prototype = {
         //and login
         dpd.users.login({username: randomUser,password: randomUser}, function(user,err) {
           if(err) return console.log(err);
-          console.log("You have logged in with user:");
-          console.log(user);
           _this.user = user;
         });
         //get tick and game latest gameinfo
         dpd.games.get({$sort: {startTime: -1}, $limit: 1}, function(game,err) {
           if(err) return console.log(err);
-          console.log("You have joined in game:");
-          console.log(game);
           _this.game = game[0];
         });
         //get random team-location for user
         dpd.hexes.get({owner: this.user.team, $limit: 1}, function(hex){
-          console.log("User starts from:");
-          console.log(hex);
           _this.startHex = hex[0];
         });
         //get hexes
         dpd.hexes.get(function(hexes){
-          console.log("We have hexes:");
-          console.log(hexes);
           _this.hexes = hexes;
         });
         //get connections
         dpd.connections.get(function(connections){
-          console.log("We have connections:");
-          console.log(connections);
           _this.connections = connections;
         });
         //get teams
         dpd.teams.get(function(teams){
-          console.log("We have teams:");
-          console.log(teams);
           _this.teams = teams;
         });
     },
