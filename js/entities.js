@@ -138,6 +138,11 @@ function PathNode(q, r, owner, phase) {
   map.addChild(pathNode);
   sortDraw = true; // recalculate draw order
 
+  createjs.Tween.get(this).wait(1000).to({alpha:0}, 1000).call(function(e) {
+    map.removeChild(this);
+    console.log(e);
+  });
+  
   return this;
 }
 

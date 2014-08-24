@@ -127,8 +127,6 @@ function onMouseUp(e) {
     // 
     console.log(JSON.stringify(connectionPath));
 
-
-
     //server.createConnection(connectionPath);
   }
   if ( e.nativeEvent.button === 2 ) { 

@@ -100,8 +100,9 @@ function gameInit() {
   stage = new createjs.Stage('stage');
 
   // set up the game loop
-  createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
+  //createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
   createjs.Ticker.setFPS(60);
+  createjs.Ticker.addEventListener('tick', onTick);
   createjs.Ticker.addEventListener('tick', onTick);
 
   // the game camera
@@ -139,9 +140,11 @@ function gameInit() {
 
   console.log(server.startHex);
 
-  var home = coordToPoint({q: server.startHex.q, r: server.startHex.r});
-  map.x = -home.x;
-  map.y = -home.y;
+  if(typeof server.startHex === 'object') {
+    var home = coordToPoint({q: server.startHex.q, r: server.startHex.r});
+    map.x = -home.x;
+    map.y = -home.y;
+  }
 
   _.each(server.hexes, function(e) {
     var tile = new Datacenter(e.q, e.r, e.type, e.owner);
@@ -438,6 +441,17 @@ function onResize() {
   cam.x = canvas.width / 2;
   cam.y = canvas.height / 2;
 }
+
+
+/*
+ * Fade out and get rid of something
+ */
+function fadeOut(target) {
+  createjs.Tween.get(target).to({alpha: 0}, 1000).call(function() {
+
+  });
+}
+
 
 // start the game
 init();
