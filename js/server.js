@@ -14,6 +14,17 @@ function Server() {
     return this;
 }
 
+dpd.on('hex:create', function(hex) {
+  console.log('Something happened on socket');
+  console.log(hex);
+});
+
+dpd.on('hex:update', function(hex) {
+  console.log('Something happened on socket');
+  console.log(hex);
+});
+
+
 Server.prototype = {
     constructor: Server,
     init:function ()  {
@@ -69,13 +80,17 @@ Server.prototype = {
     },
     /**
      * Player can create connections between servers
-     * @param startQ,startR,endQ,endR  
-     * => coordinates of start and end points
      * @param route
      * => array of point objects between start and end eg. [{q:1,r:1},{q:1,r:2}]
      */
-    /*createConnection: function (startQ,startR,endQ,endR,route) {
-      dpd.connections.post({startQ: startQ, startR: startR, endQ: endQ, endR: endR, route: route}, function({
+    createConnection: function (route) {
+      var routeWithoutEnds = route.slice(1, route.length()-2);
+      var routeStart = _.first(route);
+      var routeEnd = _.last(route);
+      var query_object = {startQ: routeStart.q, startR: routeStart.r, endQ: routeEnd.q, endR: routeEnd.r, route: routeWithoutEnds};
+      console.log("Creating this connection:");
+      console.log(query_object);
+      dpd.connections.post(query_object, function(result,err){
         //TODO
         if(err) return console.log(err);
       });

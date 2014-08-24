@@ -1,0 +1,9 @@
+Mitä työnnetään socketeihin:
+#Pelin loppuminen
+=> @param result:game object
+emit('game:end',result);
+
+=> hex:created
+=> hex:updated
+=> connection:created
+=> connection:updated
