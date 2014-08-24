@@ -76,6 +76,7 @@ function init() {
     // structure animations
     {src:'assets/animations/dome_flash.json', id:'dome_flash_data'},
     {src:'assets/animations/factory_smoke.json', id:'factory_smoke_data'},
+    {src:'assets/animations/fancy_tile_pulsate.json', id:'fancy_tile_pulsate_data'},
   ];
 
   //Connect to server
