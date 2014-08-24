@@ -100,7 +100,7 @@ function gameInit() {
   stage = new createjs.Stage('stage');
 
   // set up the game loop
-  //createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
+  createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
   createjs.Ticker.setFPS(60);
   createjs.Ticker.addEventListener('tick', onTick);
   createjs.Ticker.addEventListener('tick', onTick);
@@ -140,11 +140,13 @@ function gameInit() {
 
   console.log(server.startHex);
 
-  if(typeof server.startHex === 'object') {
+  /*if(typeof server.startHex === 'object') {
     var home = coordToPoint({q: server.startHex.q, r: server.startHex.r});
     map.x = -home.x;
     map.y = -home.y;
-  }
+  }*/
+
+  console.log(server.startHex);
 
   _.each(server.hexes, function(e) {
     var tile = new Datacenter(e.q, e.r, e.type, e.owner);
@@ -232,7 +234,8 @@ function getTile(q, r) {
  */
 function coordToPoint(coord) {
   // easy! just some squiggly rows to do.
-  
+
+
   point = {};
   
   point.x = coord.q * maskBounds.width * 3/4;
