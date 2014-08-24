@@ -1,9 +1,17 @@
 /**
- * entities.js
+ * Filename: entities.js
+ * Project: Ludum Dare 30 Entry
+ * Copyright: (c) 2014 Ludum Dare Team Tampere
+ * License: The MIT License (MIT) http://opensource.org/licenses/MIT
+ *
+ * Game entities that can be spawned in the game world
  */
 
-// add animated tile
-function Datacenter(color, q, r) {
+
+/*
+ * Adds a Datacenter node of a certain colour
+ */
+function Datacenter(colour, q, r) {
   
   // create the tile container
   tile = new createjs.Container();
@@ -18,26 +26,26 @@ function Datacenter(color, q, r) {
   tiles[q][r] = this;
   
   // add base tile 
-  var tileSprite = new createjs.Bitmap(loader.getResult("tile_" + color));
+  var tileSprite = new createjs.Bitmap(loader.getResult("tile_" + colour));
     
   // add structure
   var tileStructureSprite;
   var rand = Math.round(Math.random() * 2);
   switch(rand) {
       case 0:
-          tileStructureSprite = new createjs.Bitmap(loader.getResult("server_" + color)
+          tileStructureSprite = new createjs.Bitmap(loader.getResult("server_" + colour)
           );
           tileStructureSprite.x = 32;
           tileStructureSprite.y = -48;
           break;
       case 1:
-          tileStructureSprite = new createjs.Bitmap(loader.getResult("dome_" + color)
+          tileStructureSprite = new createjs.Bitmap(loader.getResult("dome_" + colour)
           );
           tileStructureSprite.x = 26;
           tileStructureSprite.y = 2;
           break;
       case 2:
-          tileStructureSprite = new createjs.Bitmap(loader.getResult("factory_" + color)
+          tileStructureSprite = new createjs.Bitmap(loader.getResult("factory_" + colour)
           );
           tileStructureSprite.x = 25;
           tileStructureSprite.y = -44;
@@ -60,17 +68,30 @@ function Datacenter(color, q, r) {
   tileClone.x = position.x;
   tileClone.y = position.y;
 
-  // retain the coordinate
+  // retain the coordinate and the colour
+  tileClone.colour = colour;
   tileClone.q = q;
   tileClone.r = r;
 
   // add a transparent hitbox
   tileClone.hitArea = new createjs.Bitmap(loader.getResult('tile_mask'));
 
-  // show the hitArea
+  // display the hitArea
   //tileClone.addChild(tileClone.hitArea);
 
-  
+  // set up mouse events
+  tileClone.on('rollover', function() {
+    this.children[0].y = -11;
+  });
+  tileClone.on('rollout', function() {
+    this.children[0].y = 0;
+  });
+  tileClone.on('click', function(e) {
+    if ( e.nativeEvent.button === 0 ) { 
+      console.log(this);
+    }
+  });
+
   map.addChild(tileClone);
 
   // fix draw order 

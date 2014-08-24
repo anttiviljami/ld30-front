@@ -68,6 +68,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/assets\/blue\/factory_blue.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 2833,
+		"inputAbbreviatedPath": "\/assets\/blue\/factory_blue.png",
+		"outputAbbreviatedPath": "\/assets\/blue\/factory_blue.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/assets\/blue\/server_blue.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -75,6 +86,17 @@
 		"initialSize": 3345,
 		"inputAbbreviatedPath": "\/assets\/blue\/server_blue.png",
 		"outputAbbreviatedPath": "\/assets\/blue\/server_blue.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/assets\/blue\/server_blue_v2.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 3358,
+		"inputAbbreviatedPath": "\/assets\/blue\/server_blue_v2.png",
+		"outputAbbreviatedPath": "\/assets\/blue\/server_blue_v2.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -101,6 +123,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/assets\/gray\/factory_gray.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 2674,
+		"inputAbbreviatedPath": "\/assets\/gray\/factory_gray.png",
+		"outputAbbreviatedPath": "\/assets\/gray\/factory_gray.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/assets\/gray\/server_gray.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -108,6 +141,17 @@
 		"initialSize": 2689,
 		"inputAbbreviatedPath": "\/assets\/gray\/server_gray.png",
 		"outputAbbreviatedPath": "\/assets\/gray\/server_gray.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/assets\/gray\/server_gray_v2.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 2728,
+		"inputAbbreviatedPath": "\/assets\/gray\/server_gray_v2.png",
+		"outputAbbreviatedPath": "\/assets\/gray\/server_gray_v2.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -134,6 +178,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/assets\/red\/factory_red.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 2741,
+		"inputAbbreviatedPath": "\/assets\/red\/factory_red.png",
+		"outputAbbreviatedPath": "\/assets\/red\/factory_red.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/assets\/red\/server_red.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -141,6 +196,17 @@
 		"initialSize": 3126,
 		"inputAbbreviatedPath": "\/assets\/red\/server_red.png",
 		"outputAbbreviatedPath": "\/assets\/red\/server_red.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/assets\/red\/server_red_v2.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 3079,
+		"inputAbbreviatedPath": "\/assets\/red\/server_red_v2.png",
+		"outputAbbreviatedPath": "\/assets\/red\/server_red_v2.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -189,6 +255,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/assets\/yellow\/factory_yellow.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 2866,
+		"inputAbbreviatedPath": "\/assets\/yellow\/factory_yellow.png",
+		"outputAbbreviatedPath": "\/assets\/yellow\/factory_yellow.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/assets\/yellow\/server_yellow.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -196,6 +273,17 @@
 		"initialSize": 3496,
 		"inputAbbreviatedPath": "\/assets\/yellow\/server_yellow.png",
 		"outputAbbreviatedPath": "\/assets\/yellow\/server_yellow.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/assets\/yellow\/server_yellow_v2.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 3425,
+		"inputAbbreviatedPath": "\/assets\/yellow\/server_yellow_v2.png",
+		"outputAbbreviatedPath": "\/assets\/yellow\/server_yellow_v2.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -388,6 +476,28 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/js\/controls.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/controls.js",
+		"outputAbbreviatedPath": "\/js\/min\/controls-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 0
+		},
+	"\/js\/entities.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/entities.js",
+		"outputAbbreviatedPath": "\/js\/min\/entities-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 0
+		},
 	"\/js\/main.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -398,6 +508,17 @@
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 0
+		},
+	"\/js\/min\/controls-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/min\/controls-min.js",
+		"outputAbbreviatedPath": "\/js\/min\/min\/controls-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
 		},
 	"\/js\/min\/entities-min.js": {
 		"fileType": 64,
