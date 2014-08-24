@@ -49,6 +49,12 @@ function Datacenter(q, r, type, owner) {
     case 'server':
       tileStructureSprite.x = 7;
       tileStructureSprite.y = -125;
+      tileStructureAnimation = new createjs.Sprite(
+        new createjs.SpriteSheet(loader.getResult("server_flash_data")),
+        "server_flash"       
+      );
+      tileStructureAnimation.x = 13;
+      tileStructureAnimation.y = -75;
       break;
     case 'dome':
       tileStructureSprite.x = 8;
