@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Hex - LD30 Front End</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #111;
+        position: absolute;;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+      canvas#stage {
+        background: #1b1b1b;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="stage"></canvas>
+
+    <!-- includes -->
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/EaselJS/lib/easeljs-0.7.1.min.js"></script>
+    <script src="bower_components/PreloadJS/lib/preloadjs-NEXT.min.js"></script>
+
+    <!-- server rest-api -->
+<<<<<<< HEAD
+    <script src="js/deployd.js"></script>
+    <script src="js/server.js"></script>
+
+=======
+    <script src="http://hex.koodimonni.fi/dpd.js"></script>
+    <script src="js/server.js"></script>
+>>>>>>> onni
+    <!-- game logic -->
+    <script src="js/main.js"></script>
+    <script src="js/controls.js"></script>
+    <script src="js/entities.js"></script>
+  </body>
+</html>
