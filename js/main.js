@@ -71,6 +71,7 @@ function init() {
     {src:'assets/animations/pulsate.json', id:'pulsate_data'},
     {src:'assets/animations/pulsate_reverse.json', id:'pulsate_reverse_data'},
     {src:'assets/animations/circle_dark.json', id:'circle_dark_data'},
+    {src:'assets/animations/transfer.json', id:'transfer_data'},
   ];
 
   //Connect to server
@@ -167,6 +168,12 @@ function gameInit() {
     var sfx = new Audio('assets/CashRegister.mp3');
     sfx.play();
   });
+
+
+
+      var tile = new Datacenter(1, 2);
+      var tile = new Datacenter(5, 6);
+      var tile = new Datacenter(10, 11);
 
 }
 
