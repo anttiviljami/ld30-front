@@ -80,6 +80,9 @@ function init() {
     {src:'assets/animations/transfer.json', id:'transfer_data'},
 
     {src:'assets/animations/fancy_tile_pulsate.json', id:'fancy_tile_pulsate_data'},
+    {src:'assets/animations/menu_ch_pulsate.json', id:'menu_ch_pulsate_data'},
+    {src:'assets/animations/menu_oo_pulsate.json', id:'menu_oo_pulsate_data'},
+    {src:'assets/animations/menu_se_pulsate.json', id:'menu_se_pulsate_data'},
       
     // structure animations
     {src:'assets/animations/dome_flash.json', id:'dome_flash_data'},
