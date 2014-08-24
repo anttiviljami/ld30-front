@@ -32,6 +32,8 @@ var tiles = {};
 
 var teams = {};
 
+var team;
+
 
 /*
  * Entry point, gets called on game start
@@ -129,7 +131,11 @@ function gameInit() {
   // DEBUG: Generate some random tiles
   generateRandomTiles();
 
+
   _.each(server.teams, function(e) { teams[e.id] = e.color; });
+
+  // get your team id
+  team = server.user.team;
 
   _.each(server.hexes, function(e) {
     //var tile = new Datacenter(e.q, e.r, e.type, e.owner);
@@ -142,7 +148,24 @@ function gameInit() {
     sfx.play();
   });
 
-  console.log(pathFind({q: 0, r: 0}, {q: 1, r: 1}));
+  dpd.on('hex:updated', function(e) {
+    console.log(e);
+    var sfx = new Audio('assets/CashRegister.mp3');
+    sfx.play();
+  });
+
+  dpd.on('connection:created', function(e) {
+    console.log(e);
+    var sfx = new Audio('assets/CashRegister.mp3');
+    sfx.play();
+  });
+
+  dpd.on('connection:updated', function(e) {
+    console.log(e);
+    var sfx = new Audio('assets/CashRegister.mp3');
+    sfx.play();
+  });
+
 }
 
 
@@ -331,7 +354,6 @@ function pathFind(coord0, coord1) {
   while(JSON.stringify(pathCoord) != JSON.stringify(coord1)) {
 
     path.push(pathCoord);
-    console.log(distance(coordToPoint(pathCoord), coordToPoint(coord1)));
 
     //sort neighbours by distance to target
     pathCoord = neighbours(pathCoord).sort(function (a, b) {
@@ -360,18 +382,15 @@ function pathFind(coord0, coord1) {
 function neighbours(coord) {
 
   var offsets = [
-   [ [+1,  0], [+1, -1], [ 0, -1],
-     [-1, -1], [-1,  0], [ 0, +1] ],
-   [ [+1, +1], [+1,  0], [ 0, -1],
-     [-1,  0], [-1, +1], [ 0, +1] ]
+   [ [+1,  0], [+1, 0], [ 0, -1],
+     [-1, 0], [-1,  0], [ 0, +1] ],
+   [ [+1, 0], [+1,  0], [ 0, -1],
+     [-1,  0], [-1, 0], [ 0, +1] ]
   ];
 
   var ret = _.map(offsets[(coord.q % 2 == 0) ? 1 : 0], function(e) {
     return {q: coord.q + e[0], r: coord.r + e[1]};
   });
-
-  console.log('neighbors');
-  console.log(ret);
 
   return ret;
 }

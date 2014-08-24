@@ -27,7 +27,7 @@ function Datacenter(q, r, type, owner) {
     colour = 'gray'; //grey
   }
 
-  console.log(type+"_"+colour)
+  //console.log(type+"_"+colour)
 
   // retain the coordinate and the colour
   tile.colour = colour;
@@ -97,3 +97,34 @@ function Datacenter(q, r, type, owner) {
   // return the itself
   return this;
 }
+
+/*
+ * Creates a single Path Node that represents data flow
+ */
+function PathNode(q, r, owner, phase) {
+  
+  var colour = teams[owner]; // colour can be fetched from teams 
+  if(typeof colour === 'undefined') {
+    colour = 'gray'; //grey
+  }
+
+  pathNode = new createjs.Container();
+  pathNode.addChild(new createjs.Bitmap(loader.getResult('tile_' + colour)));
+
+  // save coordinates
+  pathNode.q = q;
+  pathNode.r = r;
+
+  // position the block
+  var pos = coordToPoint({q: q, r: r});
+  pathNode.x = pos.x;
+  pathNode.y = pos.y;
+  
+  //pathNode.alpha = .4; // transparency
+
+  map.addChild(pathNode);
+  sortDraw = true; // recalculate draw order
+
+  return this;
+}
+
