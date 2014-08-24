@@ -84,7 +84,7 @@ Server.prototype = {
      * => array of point objects between start and end eg. [{q:1,r:1},{q:1,r:2}]
      */
     createConnection: function (route) {
-      var routeWithoutEnds = route.slice(1, route.length - 2);
+      var routeWithoutEnds = route.slice(1, route.length - 1);
       var routeStart = _.first(route);
       var routeEnd = _.last(route);
       var query_object = {startQ: routeStart.q, startR: routeStart.r, endQ: routeEnd.q, endR: routeEnd.r, route: routeWithoutEnds};
