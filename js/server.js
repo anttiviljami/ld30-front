@@ -30,27 +30,10 @@ Server.prototype = {
     init:function ()  {
         console.log(this);
         var _this = this;
-        //create random user
-        //var randomUser = Math.random().toString(36).slice(2);
-        var randomUser = 'm2h36yjex4txzuxr';
-        /*dpd.users.post({username: randomUser,password: randomUser, team: "125c70d7f342983f"}, function(user,err){
-          if(err) return console.log(err);
-        });*/
-        //and login
-        dpd.users.login({username: randomUser,password: randomUser}, function(user,err) {
-          if(err) return console.log(err);
-          dpd.users.get(user.uid, function(userInfo,err) {
-            _this.user = userInfo;
-          });
-        });
         //get tick and game latest gameinfo
         dpd.games.get({$sort: {startTime: -1}, $limit: 1}, function(game,err) {
           if(err) return console.log(err);
           _this.game = game[0];
-        });
-        //get random team-location for user
-        dpd.hexes.get({owner: this.user.team, $limit: 1}, function(hex){
-          _this.startHex = hex[0];
         });
         //get hexes
         dpd.hexes.get(function(hexes){
@@ -76,6 +59,31 @@ Server.prototype = {
       dpd.hexes.get(query, function (err) {
         if(err) return console.log(err);
         return result;
+      });
+    },
+    /**
+     * Player can create connections between servers
+     * @param route
+     * => array of point objects between start and end eg. [{q:1,r:1},{q:1,r:2}]
+     */
+    login:function (teamId) {
+      //create random user
+      var _this = this;
+      var randomUser = Math.random().toString(36).slice(2);
+      //and login
+      dpd.users.post({username: randomUser,password: randomUser, team: teamId}, function(user,err){
+        if(err) return console.log(err);
+      });
+      dpd.users.login({username: randomUser,password: randomUser}, function(user,err) {
+        if(err) return console.log(err);
+        dpd.users.get(user.uid, function(userInfo,err) {
+          _this.user = userInfo;
+        });
+      });
+      
+      //get random team-location for user
+      dpd.hexes.get({owner: this.user.team, $limit: 1}, function(hex){
+        _this.startHex = hex[0];
       });
     },
     /**
