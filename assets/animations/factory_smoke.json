@@ -1,0 +1,25 @@
+{
+"images": ["assets/animations/factory_smoke.png"],
+"frames": [
+
+    [2, 2, 69, 99], 
+    [73, 2, 69, 99], 
+    [144, 2, 69, 99], 
+    [215, 2, 69, 99],
+    [0,0,0,0]
+],
+"animations": {
+    
+    "factory_smoke": {
+      "frames": [0,1,2,3]
+    },
+    "blank": {
+      "frames": [4]
+    }
+},
+"texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:5f15360e347c7ff10073c878958e4f2f:81319cdc0ae8b40b606b9c72c647763a:4300814ee089a0f7fec54abd83d71b45$",
+        "Created with TexturePacker (http://www.texturepacker.com) for EaselJS"
+],
+"framerate": 2
+}
